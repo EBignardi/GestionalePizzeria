@@ -1,30 +1,33 @@
 package model;
 
-//**Classe pricipale
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
+//Classe pricipale
 public class Cliente {
-	private String[] nomiPizze;
-	private int numTavolo;
+	private StringProperty[] nomiPizze;
+	private IntegerProperty numTavolo;
 	
-	public Cliente(String[] pizza, int numTavolo) {
-		super();
-		this.nomiPizze = pizza;
-		this.numTavolo = numTavolo;
+	public Cliente(StringProperty[] pizza, IntegerProperty numTavolo) {
+		this.setNomiPizze(pizza);
+		this.setNumTavolo(numTavolo);
 	}
 
-	public String[] getPizza() {
+	public StringProperty[] getNomiPizzeProperty() {
 		return nomiPizze;
 	}
-	
-	public void setPizza(String[] pizza) {
-		this.nomiPizze = pizza;
+
+	public void setNomiPizze(StringProperty[] nomiPizze) {
+		this.nomiPizze = nomiPizze;
 	}
 
-	public int getNumTavolo() {
+	public IntegerProperty getNumTavoloProperty() {
 		return numTavolo;
 	}
 
-	public void setNumTavolo(int numTavolo) {
+	public void setNumTavolo(IntegerProperty numTavolo) {
 		this.numTavolo = numTavolo;
 	}
-	
+
+
 }

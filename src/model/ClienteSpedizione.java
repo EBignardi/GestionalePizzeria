@@ -1,13 +1,16 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 public class ClienteSpedizione extends ClienteAsporto {
 	private String indirizzo;
 	private int numeroCivico;
 	private int numeroTelefono;
 	
-	public ClienteSpedizione(String[] nomiPizze, int numTavolo, String nomeCliente, int orario, String indirizzo, int numeroCivico, int numeroTelefono) {
+	public ClienteSpedizione(StringProperty[] nomiPizze, IntegerProperty numTavolo, String nomeCliente, int orario, String indirizzo, int numeroCivico, int numeroTelefono) {
 		//numTavolo=0 perché non mangia in un tavolo
-		super(nomiPizze, 0, nomeCliente, orario);
+		super(nomiPizze, numTavolo, nomeCliente, orario);
 		this.indirizzo = indirizzo;
 		this.numeroCivico = numeroCivico;
 		this.numeroTelefono = numeroTelefono;
