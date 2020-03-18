@@ -4,40 +4,42 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
 public class ClienteSpedizione extends ClienteAsporto {
-	private String indirizzo;
-	private int numeroCivico;
-	private int numeroTelefono;
+	private StringProperty indirizzo;
+	private IntegerProperty numeroCivico;
+	private IntegerProperty numeroTelefono;
 	
-	public ClienteSpedizione(StringProperty[] nomiPizze, IntegerProperty numTavolo, String nomeCliente, int orario, String indirizzo, int numeroCivico, int numeroTelefono) {
+	public ClienteSpedizione(Pizza elencoPizze, IntegerProperty numTavolo, StringProperty nomeCliente, IntegerProperty orario,
+			StringProperty indirizzo, IntegerProperty numeroCivico, IntegerProperty numeroTelefono) {
 		//numTavolo=0 perché non mangia in un tavolo
-		super(nomiPizze, numTavolo, nomeCliente, orario);
-		this.indirizzo = indirizzo;
-		this.numeroCivico = numeroCivico;
-		this.numeroTelefono = numeroTelefono;
+		super(elencoPizze, numTavolo, nomeCliente, orario);
+		this.setIndirizzo(indirizzo);
+		this.setNumeroCivico(numeroCivico);
+		this.setNumeroTelefono(numeroTelefono);
 	}
 
-	public String getIndirizzo() {
+	public StringProperty getIndirizzo() {
 		return indirizzo;
 	}
-	
-	public void setIndirizzo(String indirizzo) {
+
+	public void setIndirizzo(StringProperty indirizzo) {
 		this.indirizzo = indirizzo;
 	}
-	
-	public int getNumeroCivico() {
+
+	public IntegerProperty getNumeroCivico() {
 		return numeroCivico;
 	}
-	
-	public void setNumeroCivico(int numeroCivico) {
+
+	public void setNumeroCivico(IntegerProperty numeroCivico) {
 		this.numeroCivico = numeroCivico;
 	}
-	
-	public int getNumeroTelefono() {
+
+	public IntegerProperty getNumeroTelefono() {
 		return numeroTelefono;
 	}
-	
-	public void setNumeroTelefono(int numeroTelefono) {
+
+	public void setNumeroTelefono(IntegerProperty numeroTelefono) {
 		this.numeroTelefono = numeroTelefono;
 	}
 
+	
 }

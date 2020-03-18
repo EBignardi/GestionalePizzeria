@@ -5,8 +5,12 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import dataAccessObject.PizzaDAO;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -84,8 +88,23 @@ public class PizzaController {
 	private RadioButton rdoMozzarellaNo; // Value injected by FXMLLoader
 
 	@FXML
-	void btnAggiungiPizzaAction(ActionEvent event) {
+	void btnAggiungiPizzaAction(ActionEvent event) throws ClassNotFoundException, SQLException {
 		System.out.println("Aggiunta Pizza");
+		Pizza pizzaSelezionata = tabCercaPizza.getSelectionModel().getSelectedItem();
+		if (pizzaSelezionata == null) {
+			System.out.println("Nessuna Pizza selezionata");
+		} else {
+			StringProperty nomePizzaSelezionata = pizzaSelezionata.getNomePizzaProperty();
+			FloatProperty prezzoPizzaSelezionata = pizzaSelezionata.getPrezzoProperty();
+			System.out.println("Nome Pizza selezionata = " + nomePizzaSelezionata.get());
+			System.out.println("Prezzo Pizza selezionata = " + prezzoPizzaSelezionata.get());
+			
+			colPizza.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
+			colPrezzo.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
+			
+			ObservableList<Pizza> pizzaSelected = FXCollections.observableArrayList();
+			populateTable(pizzaSelected);
+		}
 	}
 	
 
@@ -123,7 +142,7 @@ public class PizzaController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				}
+			}
 		});
 	}
 

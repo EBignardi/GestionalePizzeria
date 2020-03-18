@@ -74,6 +74,7 @@ public class PizzaDAO {
 			throw e;
 		}
 	}
+
 	
 	private static ObservableList<Pizza> getPizzaObject(ResultSet rsSet) throws SQLException,ClassNotFoundException {
 		try {

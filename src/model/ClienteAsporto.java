@@ -4,31 +4,32 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
 public class ClienteAsporto extends Cliente {
-	private String nomeCliente;
-	private int orario;
+	private StringProperty nomeCliente;
+	private IntegerProperty orario;
 	// private Date data;
 	
-	public ClienteAsporto(StringProperty[] nomiPizze, IntegerProperty numTavolo, String nomeCliente, int orario) {
-		//numTavolo=0 perché non mangia in un tavolo
-		super(nomiPizze, numTavolo);
+	public ClienteAsporto(Pizza elencoPizze, IntegerProperty numTavolo, StringProperty nomeCliente, IntegerProperty orario) {
+		//settare numTavolo=0 perché non mangia in un tavolo
+		super(elencoPizze, numTavolo);
+		this.setNomeCliente(nomeCliente);
+		this.setOrario(orario);
+	}
+
+	public StringProperty getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(StringProperty nomeCliente) {
 		this.nomeCliente = nomeCliente;
+	}
+
+	public IntegerProperty getOrario() {
+		return orario;
+	}
+
+	public void setOrario(IntegerProperty orario) {
 		this.orario = orario;
 	}
 
-	public String getNome() {
-		return nomeCliente;
-	}
-	
-	public void setNome(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
-	}
-	
-	public int getOrario() {
-		return orario;
-	}
-	
-	public void setOrario(int orario) {
-		this.orario = orario;
-	}
-	
+
 }
