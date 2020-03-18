@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 
 public class Pizza {
 	/**
-	 * nomePizza corrisponde al nome completo della pziza stessa 
+	 * nomePizza corrisponde al nome completo della pizza stessa 
 	 * oppure all'insieme degli ingredienti
 	 */
 	private StringProperty nomePizza;
