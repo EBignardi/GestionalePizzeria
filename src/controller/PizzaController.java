@@ -23,68 +23,86 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import model.Pizza;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.regex.MatchResult;
 
 public class PizzaController {
+	
+    @FXML // fx:id="txtCercaPizza"
+    private TextField txtCercaPizza; // Value injected by FXMLLoader
 
-	@FXML // ResourceBundle that was given to the FXMLLoader
-	private ResourceBundle resources;
+    @FXML // fx:id="btnModifica"
+    private Button btnModifica; // Value injected by FXMLLoader
 
-	@FXML // URL location of the FXML file that was given to the FXMLLoader
-	private URL location;
+    @FXML // fx:id="GroupImpasto"
+    private ToggleGroup GroupImpasto; // Value injected by FXMLLoader
 
-	@FXML // fx:id="txtCercaPizza"
-	private TextField txtCercaPizza; // Value injected by FXMLLoader
+    @FXML // fx:id="colPizza"
+    private TableColumn<Pizza, String> colPizza; // Value injected by FXMLLoader
 
-	@FXML // fx:id="tabOrdine"
-	private TableView<Pizza> tabOrdine; // Value injected by FXMLLoader
+    @FXML // fx:id="rdoIntegrale"
+    private RadioButton rdoIntegrale; // Value injected by FXMLLoader
 
-	@FXML // fx:id="colPrezzo"
-	private TableColumn<Pizza, Float> colPrezzo; // Value injected by FXMLLoader
+    @FXML // fx:id="colPrezzoSelezione"
+    private TableColumn<Pizza, Float> colPrezzoSelezione; // Value injected by FXMLLoader
 
-	@FXML // fx:id="colPizza"
-	private TableColumn<Pizza, String> colPizza; // Value injected by FXMLLoader
+    @FXML // fx:id="tabCercaPizza"
+    private TableView<Pizza> tabCercaPizza; // Value injected by FXMLLoader
 
-	@FXML // fx:id="tabCercaPizza"
-	private TableView<Pizza> tabCercaPizza; // Value injected by FXMLLoader
+    @FXML // fx:id="rdoPomodoroSì"
+    private RadioButton rdoPomodoroSì; // Value injected by FXMLLoader
 
-	@FXML // fx:id="colPrezzoSelezione"
-	private TableColumn<Pizza, Float> colPrezzoSelezione; // Value injected by FXMLLoader
+    @FXML // fx:id="tabOrdine"
+    private TableView<Pizza> tabOrdine; // Value injected by FXMLLoader
 
-	@FXML // fx:id="colPizzaSelezione"
-	private TableColumn<Pizza, String> colPizzaSelezione; // Value injected by FXMLLoader
+    @FXML // fx:id="chkDoppio"
+    private CheckBox chkDoppio; // Value injected by FXMLLoader
 
-	@FXML // fx:id="btnModifica"
-	private Button btnModifica; // Value injected by FXMLLoader
+    @FXML // fx:id="GroupPomodoro"
+    private ToggleGroup GroupPomodoro; // Value injected by FXMLLoader
 
-	@FXML // fx:id="rdoIntegrale"
-	private RadioButton rdoIntegrale; // Value injected by FXMLLoader
+    @FXML // fx:id="btnAggiungi"
+    private Button btnAggiungi; // Value injected by FXMLLoader
 
-	@FXML // fx:id="rdoPomodoroSì"
-	private RadioButton rdoPomodoroSì; // Value injected by FXMLLoader
+    @FXML // fx:id="rdoKamut"
+    private RadioButton rdoKamut; // Value injected by FXMLLoader
 
-	@FXML // fx:id="chkDoppio"
-	private CheckBox chkDoppio; // Value injected by FXMLLoader
+    @FXML // fx:id="colPizzaSelezione"
+    private TableColumn<Pizza, String> colPizzaSelezione; // Value injected by FXMLLoader
 
-	@FXML // fx:id="btnAggiungi"
-	private Button btnAggiungi; // Value injected by FXMLLoader
+    @FXML // fx:id="rdoMozzarellaSì"
+    private RadioButton rdoMozzarellaSì; // Value injected by FXMLLoader
 
-	@FXML // fx:id="rdoKamut"
-	private RadioButton rdoKamut; // Value injected by FXMLLoader
+    @FXML // fx:id="rdoPomodoroNo"
+    private RadioButton rdoPomodoroNo; // Value injected by FXMLLoader
 
-	@FXML // fx:id="rdoMozzarellaSì"
-	private RadioButton rdoMozzarellaSì; // Value injected by FXMLLoader
+    @FXML // fx:id="colPrezzo"
+    private TableColumn<Pizza, Float> colPrezzo; // Value injected by FXMLLoader
 
-	@FXML // fx:id="rdoPomodoroNo"
-	private RadioButton rdoPomodoroNo; // Value injected by FXMLLoader
+    @FXML // fx:id="rdoNormale"
+    private RadioButton rdoNormale; // Value injected by FXMLLoader
 
+    @FXML // fx:id="GroupMozzarella"
+    private ToggleGroup GroupMozzarella; // Value injected by FXMLLoader
 
-	@FXML // fx:id="rdoNormale"
-	private RadioButton rdoNormale; // Value injected by FXMLLoader
-
-	@FXML // fx:id="rdoMozzarellaNo"
-	private RadioButton rdoMozzarellaNo; // Value injected by FXMLLoader
-
+    @FXML // fx:id="rdoMozzarellaNo"
+    private RadioButton rdoMozzarellaNo; // Value injected by FXMLLoader
+   
+    @FXML
+    private CheckBox chkProsciuttoCotto;
+    
+    @FXML
+    private CheckBox chkDiavola;
+    
+    @FXML
+    private CheckBox chkTuaMamma;
+    
+    @FXML
+    private CheckBox chkWustrler;
+    
 	@FXML
 	void btnAggiungiPizzaAction(ActionEvent event) throws ClassNotFoundException, SQLException {
 		System.out.println("Aggiunta Pizza");
@@ -92,6 +110,9 @@ public class PizzaController {
 		if (pizzaSelezionata == null) {
 			System.out.println("Nessuna Pizza selezionata");
 		} else {
+			
+			//devo aggiungedere il metodo per vedere se ho cambiato qualche ingredienti, es flag = 1
+			
 			StringProperty nomePizzaSelezionata = pizzaSelezionata.getNomePizzaProperty();
 			FloatProperty prezzoPizzaSelezionata = pizzaSelezionata.getPrezzoProperty();
 			System.out.println("Nome Pizza selezionata = " + nomePizzaSelezionata.get());
@@ -100,8 +121,19 @@ public class PizzaController {
 			Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), pizzaSelezionata.getPrezzoProperty(), pizzaSelezionata.getIngredientiProperty());
 			tabOrdine.getItems().add(pizzaSelected);
 		}
+		
+		
 	}
 	
+	public void clearChkRdo() { 
+		rdoPomodoroNo.setSelected(true);
+		rdoMozzarellaNo.setSelected(true);
+		
+		chkProsciuttoCotto.setSelected(false);
+		chkWustrler.setSelected(false);
+		chkTuaMamma.setSelected(false);
+		chkDiavola.setSelected(false);  
+	}
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 	void initialize() throws Exception, SQLException {    	
@@ -146,8 +178,7 @@ public class PizzaController {
 		/**
 		tg.selectedToggleProperty().addListener(new ChangeListener<Toggle>()  
         { 
-            public void changed(ObservableValue<? extends Toggle> ob,  
-                                                    Toggle o, Toggle n) 
+            public void changed(ObservableValue<? extends Toggle> ob, Toggle o, Toggle n) 
             { 
   
                 RadioButton rb = (RadioButton)tg.getSelectedToggle(); 
@@ -166,34 +197,60 @@ public class PizzaController {
 		tabCercaPizza.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		    if (newSelection != null) {
 		    	System.out.println("Selezione Pizza Valida");
+		    	
 		    	//Qui devo selezionare i rdoButton in base alla pizza selezionata
 		    	//creo un metodo per selezionare gli ingredienti in base al nome della pizza
 		    	Pizza pizzaSelezionata = tabCercaPizza.getSelectionModel().getSelectedItem();
 		    	Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), pizzaSelezionata.getPrezzoProperty(), 
 		    			pizzaSelezionata.getIngredientiProperty());
 		    	String ingredienti = pizzaSelected.getIngredienti();
-		    	//ingredinti = stringa che contiene gli ingredienti, separati da un '+'
+		    	clearChkRdo();
+		    	//ingredienti = stringa che contiene gli ingredienti, separati da un '/'
 		    	System.out.println(ingredienti);
 		    	
-		    	String ingrediente = new String();
-		    	for(int i = 0; i < ingredienti.length(); i++) {
-		    	  char lettera = ingredienti.charAt(i);
-		    	  
-		    	  if(lettera != '+') {
-		    		  ingrediente += lettera;
-		    		  break;
-		    	  }
-		    	  else {
-		    		  ingrediente = "";
-		    	  }
-		    	}
+		    	//ricavo i singoli ingredienti
+		    	Scanner s = new Scanner(ingredienti);
+		    	s.useDelimiter("/");
+		    	
+		    	 while(s.hasNext()){
+		    		 String ingrediente = s.next();
+		    		 
+		    		 if (ingrediente.equals("Mozzarella")) 
+		    			 rdoMozzarellaSì.setSelected(true);
+		    		 
+		    		 if (ingrediente.equals("Pomodoro")) 
+		    			 rdoPomodoroSì.setSelected(true);
+		    		 
+		    		 if (ingrediente.equals("Diavola")) 
+		    			 chkDiavola.setSelected(true);
+		    		 
+		    		 
+		    		 if (ingrediente.equals("TuaMamma")) 
+		    			 chkTuaMamma.setSelected(true);
+		    		
+		    		 
+		    		 if (ingrediente.equals("Wustrler"))
+		    			 chkWustrler.setSelected(true);
+		    		 
+		    		 
+		    		 if (ingrediente.equals("ProsciuttoCotto"))
+		    			 chkProsciuttoCotto.setSelected(true);
+		    		
+		    		 
+		    		 System.out.println(ingrediente);
+		    	 }   
+		    	 
+		    	 s.close();
 		    }
+		    
 		    else {
 		    	System.out.println("Selezione Pizza NON Valida");
 		    }
+		    		 
 		});
 		
 	}
+	
 
 	private void populateTable(ObservableList<Pizza> pizzaList) {
 		tabCercaPizza.setItems(pizzaList);

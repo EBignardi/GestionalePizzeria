@@ -37,7 +37,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label layoutX="42.0" layoutY="14.0" text="Riepilogo Ordine" textFill="#750000">
+                  <Label layoutX="53.0" layoutY="19.0" prefHeight="153.0" prefWidth="241.0" text="Riepilogo Ordine" textAlignment="CENTER" textFill="#750000" wrapText="true">
                      <font>
                         <Font name="System Bold Italic" size="35.0" />
                      </font>
@@ -106,10 +106,10 @@
                         <Insets />
                      </opaqueInsets>
                   </GridPane>
-                  <TableView fx:id="tabCercaPizza" layoutX="398.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="261.0">
+                  <TableView fx:id="tabCercaPizza" layoutX="398.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="249.0">
                     <columns>
-                      <TableColumn fx:id="colPizzaSelezione" minWidth="0.0" prefWidth="175.0" text="Pizza" />
-                      <TableColumn fx:id="colPrezzoSelezione" prefWidth="85.0" text="Prezzo" />
+                      <TableColumn fx:id="colPizzaSelezione" minWidth="0.0" prefWidth="164.0" text="Pizza" />
+                      <TableColumn fx:id="colPrezzoSelezione" prefWidth="96.0" text="Prezzo" />
                     </columns>
                   </TableView>
                </children>
@@ -179,10 +179,10 @@
                               <Font name="System Bold Italic" size="20.0" />
                            </font>
                         </Label>
-                        <RadioButton fx:id="rdoDiavola" mnemonicParsing="false" text="Diavola" GridPane.rowIndex="3" />
-                        <RadioButton mnemonicParsing="false" text="Salsiccia" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <RadioButton mnemonicParsing="false" text="Wurstler" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <RadioButton mnemonicParsing="false" text="Cotto" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="chkDiavola" mnemonicParsing="false" text="Diavola" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="chkProsciuttoCotto" mnemonicParsing="false" text="Prosciutto Cotto" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="chkWustrler" mnemonicParsing="false" text="Wustrler" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="chkTuaMamma" mnemonicParsing="false" text="TuaMamma" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
