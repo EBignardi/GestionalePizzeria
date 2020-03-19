@@ -17,6 +17,12 @@ public class Pizza {
 		this.ingredienti = new SimpleStringProperty();
 	}
 	
+	public Pizza(StringProperty nomePizza, FloatProperty prezzo, StringProperty ingredienti) {
+		this.nomePizza = nomePizza;
+		this.prezzo = prezzo;
+		this.ingredienti = ingredienti;
+	}
+
 	public StringProperty getNomePizzaProperty() {
 		return nomePizza;
 	}

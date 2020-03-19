@@ -100,11 +100,26 @@ public class PizzaDAO {
 		try {
 			ResultSet rsSet = DBUtil.dbExecute(sql);
 			ObservableList<Pizza> pizzaListSearch =  getPizzaObject(rsSet);
-			System.out.println("Pizza ritornate " + pizzaListSearch);
+			System.out.println("Pizze ritornate " + pizzaListSearch);
 			return pizzaListSearch;
 		}
 		catch(SQLException e) {
 			System.out.println("Error occured while searching Pizza " + e);
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public static ObservableList<Pizza> searchIngredientiPizza(String nomePizza) throws SQLException,ClassNotFoundException{
+		String sql = "select ingredienti from Pizza where nomePizza = " + nomePizza;
+		try {
+			ResultSet rsSet = DBUtil.dbExecute(sql);
+			ObservableList<Pizza> pizzaIngredientiSearch =  getPizzaObject(rsSet);
+			System.out.println("Ingredienti ritornati " + pizzaIngredientiSearch);
+			return pizzaIngredientiSearch;
+		}
+		catch(SQLException e) {
+			System.out.println("Error occured while searching Ingredienti Pizza " + e);
 			e.printStackTrace();
 			throw e;
 		}

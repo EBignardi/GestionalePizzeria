@@ -72,8 +72,6 @@ public class PizzaController {
 	@FXML // fx:id="rdoKamut"
 	private RadioButton rdoKamut; // Value injected by FXMLLoader
 
-
-
 	@FXML // fx:id="rdoMozzarellaSì"
 	private RadioButton rdoMozzarellaSì; // Value injected by FXMLLoader
 
@@ -99,11 +97,8 @@ public class PizzaController {
 			System.out.println("Nome Pizza selezionata = " + nomePizzaSelezionata.get());
 			System.out.println("Prezzo Pizza selezionata = " + prezzoPizzaSelezionata.get());
 			
-			colPizza.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
-			colPrezzo.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
-			
-			ObservableList<Pizza> pizzaSelected = FXCollections.observableArrayList();
-			populateTable(pizzaSelected);
+			Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), pizzaSelezionata.getPrezzoProperty(), pizzaSelezionata.getIngredientiProperty());
+			tabOrdine.getItems().add(pizzaSelected);
 		}
 	}
 	
@@ -125,6 +120,9 @@ public class PizzaController {
 		assert rdoPomodoroSì != null : "fx:id=\"rdoPomodoroSì\" was not injected: check your FXML file 'Pizza.fxml'.";
 		assert rdoPomodoroNo != null : "fx:id=\"rdoPomodoroNo\" was not injected: check your FXML file 'Pizza.fxml'.";
 		
+		colPizza.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
+		colPrezzo.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
+		
 		colPizzaSelezione.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
 		colPrezzoSelezione.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
 		ObservableList<Pizza> pizzaList = PizzaDAO.getAllRecords();
@@ -144,6 +142,57 @@ public class PizzaController {
 				}
 			}
 		});
+		
+		/**
+		tg.selectedToggleProperty().addListener(new ChangeListener<Toggle>()  
+        { 
+            public void changed(ObservableValue<? extends Toggle> ob,  
+                                                    Toggle o, Toggle n) 
+            { 
+  
+                RadioButton rb = (RadioButton)tg.getSelectedToggle(); 
+  
+                if (rb != null) { 
+                    String s = rb.getText(); 
+  
+                    // change the label 
+                    l2.setText(s + " selected"); 
+                } 
+            } 
+        })
+		*/
+	
+		
+		tabCercaPizza.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		    if (newSelection != null) {
+		    	System.out.println("Selezione Pizza Valida");
+		    	//Qui devo selezionare i rdoButton in base alla pizza selezionata
+		    	//creo un metodo per selezionare gli ingredienti in base al nome della pizza
+		    	Pizza pizzaSelezionata = tabCercaPizza.getSelectionModel().getSelectedItem();
+		    	Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), pizzaSelezionata.getPrezzoProperty(), 
+		    			pizzaSelezionata.getIngredientiProperty());
+		    	String ingredienti = pizzaSelected.getIngredienti();
+		    	//ingredinti = stringa che contiene gli ingredienti, separati da un '+'
+		    	System.out.println(ingredienti);
+		    	
+		    	String ingrediente = new String();
+		    	for(int i = 0; i < ingredienti.length(); i++) {
+		    	  char lettera = ingredienti.charAt(i);
+		    	  
+		    	  if(lettera != '+') {
+		    		  ingrediente += lettera;
+		    		  break;
+		    	  }
+		    	  else {
+		    		  ingrediente = "";
+		    	  }
+		    	}
+		    }
+		    else {
+		    	System.out.println("Selezione Pizza NON Valida");
+		    }
+		});
+		
 	}
 
 	private void populateTable(ObservableList<Pizza> pizzaList) {

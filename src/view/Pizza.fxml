@@ -46,10 +46,10 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView fx:id="tabOrdine" layoutX="-1.0" prefHeight="715.0" prefWidth="350.0">
+                  <TableView fx:id="tabOrdine" layoutX="-1.0" prefHeight="1202.0" prefWidth="350.0">
                      <columns>
-                        <TableColumn fx:id="colPizza" prefWidth="275.0" text="Pizza" />
-                        <TableColumn fx:id="colPrezzo" prefWidth="74.0" text="Prezzo" />
+                        <TableColumn fx:id="colPizza" prefWidth="226.0" text="Pizza" />
+                        <TableColumn fx:id="colPrezzo" minWidth="0.0" prefWidth="123.0" text="Prezzo" />
                      </columns>
                   </TableView>
                </children>
@@ -58,9 +58,9 @@
       </SplitPane>
    </left>
    <center>
-      <SplitPane dividerPositions="0.1376720901126408" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.1837026447462473" orientation="VERTICAL" prefHeight="1401.0" prefWidth="1112.0" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="1180.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="1058.0">
                <children>
                   <GridPane hgap="20.0" layoutX="14.0" layoutY="14.0" prefHeight="77.0" prefWidth="1083.0" vgap="20.0">
                     <columnConstraints>
@@ -106,10 +106,10 @@
                         <Insets />
                      </opaqueInsets>
                   </GridPane>
-                  <TableView fx:id="tabCercaPizza" layoutX="398.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0" prefWidth="261.0">
+                  <TableView fx:id="tabCercaPizza" layoutX="398.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="261.0">
                     <columns>
-                      <TableColumn fx:id="colPizzaSelezione" minWidth="0.0" prefWidth="159.0" text="Pizza" />
-                      <TableColumn fx:id="colPrezzoSelezione" prefWidth="53.0" text="Prezzo" />
+                      <TableColumn fx:id="colPizzaSelezione" minWidth="0.0" prefWidth="175.0" text="Pizza" />
+                      <TableColumn fx:id="colPrezzoSelezione" prefWidth="85.0" text="Prezzo" />
                     </columns>
                   </TableView>
                </children>
@@ -148,28 +148,41 @@
                            </font>
                         </Label>
                         <CheckBox fx:id="chkDoppio" mnemonicParsing="false" text="Doppio" GridPane.columnIndex="6" />
-                        <RadioButton fx:id="rdoNormale" mnemonicParsing="false" selected="true" text="Normale" GridPane.columnIndex="2" />
-                        <RadioButton fx:id="rdoIntegrale" mnemonicParsing="false" text="Integrale" GridPane.columnIndex="3" />
-                        <RadioButton fx:id="rdoKamut" mnemonicParsing="false" text="Kamut" GridPane.columnIndex="4" />
+                        <RadioButton fx:id="rdoNormale" mnemonicParsing="false" selected="true" text="Normale" GridPane.columnIndex="2">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="GroupImpasto" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="rdoIntegrale" mnemonicParsing="false" text="Integrale" toggleGroup="$GroupImpasto" GridPane.columnIndex="3" />
+                        <RadioButton fx:id="rdoKamut" mnemonicParsing="false" text="Kamut" toggleGroup="$GroupImpasto" GridPane.columnIndex="4" />
                         <Label text="Mozzarella" GridPane.columnSpan="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <RadioButton fx:id="rdoMozzarellaSì" mnemonicParsing="false" text="Sì" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <RadioButton fx:id="rdoMozzarellaNo" mnemonicParsing="false" text="No" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="rdoMozzarellaSì" mnemonicParsing="false" text="Sì" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="GroupMozzarella" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="rdoMozzarellaNo" mnemonicParsing="false" text="No" toggleGroup="$GroupMozzarella" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                         <Label text="Pomodoro" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <RadioButton fx:id="rdoPomodoroSì" mnemonicParsing="false" text="Sì" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-                        <RadioButton fx:id="rdoPomodoroNo" mnemonicParsing="false" text="No" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="rdoPomodoroSì" mnemonicParsing="false" text="Sì" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="GroupPomodoro" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="rdoPomodoroNo" mnemonicParsing="false" text="No" toggleGroup="$GroupPomodoro" GridPane.columnIndex="8" GridPane.rowIndex="1" />
                         <Label text="Ingredienti" textFill="#0f00ae" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold Italic" size="20.0" />
                            </font>
                         </Label>
+                        <RadioButton fx:id="rdoDiavola" mnemonicParsing="false" text="Diavola" GridPane.rowIndex="3" />
+                        <RadioButton mnemonicParsing="false" text="Salsiccia" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <RadioButton mnemonicParsing="false" text="Wurstler" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <RadioButton mnemonicParsing="false" text="Cotto" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
