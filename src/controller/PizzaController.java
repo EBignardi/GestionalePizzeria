@@ -276,7 +276,7 @@ public class PizzaController {
 		    		            System.out.println("Action performed on checkbox " + chk.getText());
 		    		            if (chk.isSelected()) {
 		    		            	System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + pizzaSelected.getPrezzoProperty().add(0.5).get());
-		    		            } else if (!chk.isSelected()){
+		    		            } else if (chk.isDisabled()){
 		    		            	System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + pizzaSelected.getPrezzoProperty().add(-0.5).get());
 		    		            }
 		    		        }
