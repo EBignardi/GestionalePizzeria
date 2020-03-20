@@ -1,18 +1,15 @@
 package controller;
 
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
-
 import dataAccessObject.PizzaDAO;
+
 import javafx.beans.property.FloatProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,9 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import model.Pizza;
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.regex.MatchResult;
 
 public class PizzaController {
 	
@@ -103,6 +98,15 @@ public class PizzaController {
     @FXML
     private CheckBox chkWustrler;
     
+    
+    
+    /**
+     * Action di Bottone Aggiungi Pizza:
+     * inserisce la pizza selezionata dalla tabella nella tabella Ordine
+     * @param event
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
 	@FXML
 	void btnAggiungiPizzaAction(ActionEvent event) throws ClassNotFoundException, SQLException {
 		System.out.println("Aggiunta Pizza");
@@ -125,6 +129,9 @@ public class PizzaController {
 		
 	}
 	
+	/**
+	 * Resetta tutti i RadioButton e CheckButton
+	 */
 	public void clearChkRdo() { 
 		rdoPomodoroNo.setSelected(true);
 		rdoMozzarellaNo.setSelected(true);
@@ -152,14 +159,20 @@ public class PizzaController {
 		assert rdoPomodoroSì != null : "fx:id=\"rdoPomodoroSì\" was not injected: check your FXML file 'Pizza.fxml'.";
 		assert rdoPomodoroNo != null : "fx:id=\"rdoPomodoroNo\" was not injected: check your FXML file 'Pizza.fxml'.";
 		
+		//inizializzazione delle colonne della tabella riepilogo ordine
 		colPizza.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
 		colPrezzo.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
 		
+		//inizializzazione delle colonne della tabella di selezione della pizza
 		colPizzaSelezione.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
 		colPrezzoSelezione.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
 		ObservableList<Pizza> pizzaList = PizzaDAO.getAllRecords();
 		populateTable(pizzaList);
 		
+		/**
+		 * Metodo che ad ogni cambiamento del testo inserito nella textBox CercaPizza
+		 * cerca nel mio DataBase le pizze che corrispondono ai caratteri inseriti
+		 */
 		txtCercaPizza.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue){
@@ -193,7 +206,10 @@ public class PizzaController {
         })
 		*/
 	
-		
+		/**
+		 * Metodo che cambia il Form di selezione degli ingredienti in base agli ingredienti letti nel DataBase
+		 * in base al nome della pizza che viene selezionata dalla Tabella di selezione
+		 */
 		tabCercaPizza.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		    if (newSelection != null) {
 		    	System.out.println("Selezione Pizza Valida");
@@ -212,35 +228,63 @@ public class PizzaController {
 		    	Scanner s = new Scanner(ingredienti);
 		    	s.useDelimiter("/");
 		    	
+		    	//per ogni ingrediente contenuto nella stringa letta si provvede a Settare i vari Radio e Check Button
 		    	 while(s.hasNext()){
 		    		 String ingrediente = s.next();
 		    		 
-		    		 if (ingrediente.equals("Mozzarella")) 
-		    			 rdoMozzarellaSì.setSelected(true);
+		    		 if (ingrediente.equals("Mozzarella")) rdoMozzarellaSì.setSelected(true);
 		    		 
-		    		 if (ingrediente.equals("Pomodoro")) 
-		    			 rdoPomodoroSì.setSelected(true);
+		    		 if (ingrediente.equals("Pomodoro")) rdoPomodoroSì.setSelected(true);
 		    		 
-		    		 if (ingrediente.equals("Diavola")) 
-		    			 chkDiavola.setSelected(true);
+		    		 if (ingrediente.equals("Diavola")) chkDiavola.setSelected(true);
 		    		 
-		    		 
-		    		 if (ingrediente.equals("TuaMamma")) 
-		    			 chkTuaMamma.setSelected(true);
+		    		 if (ingrediente.equals("TuaMamma")) chkTuaMamma.setSelected(true);
 		    		
+		    		 if (ingrediente.equals("Wustrler")) chkWustrler.setSelected(true);
 		    		 
-		    		 if (ingrediente.equals("Wustrler"))
-		    			 chkWustrler.setSelected(true);
-		    		 
-		    		 
-		    		 if (ingrediente.equals("ProsciuttoCotto"))
-		    			 chkProsciuttoCotto.setSelected(true);
-		    		
+		    		 if (ingrediente.equals("ProsciuttoCotto")) chkProsciuttoCotto.setSelected(true);
 		    		 
 		    		 System.out.println(ingrediente);
 		    	 }   
 		    	 
+		    	 //chiusura dello Scanner
 		    	 s.close();
+		    	 System.out.println("Prezzo Pizza selezionata PRIMA cambiamento: " + pizzaSelected.getPrezzo());
+		    	 
+		    	 /**
+		    	  * Metodo per cambiare il prezzo in base alla selezione di una diversa CheckBox
+		    	  * AGGIUNGO se ne seleziono di nuove
+		    	  * TOLGO se tolgo la selezione di qualcuna
+		    	  */
+		    	 /*
+		    	 chkDiavola.selectedProperty().addListener(new ChangeListener<Boolean>() {
+		    		    @Override
+		    		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		    		    	if (!oldValue)
+		    		    		System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + pizzaSelected.getPrezzoProperty().add(0.5).get());
+		    		    	else 
+		    		    		System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + pizzaSelected.getPrezzoProperty().add(-0.5).get());
+		    		    }
+		    	 });
+		    	 */
+		    	 
+		    	 EventHandler<ActionEvent> eh = new EventHandler<ActionEvent>() {
+		    		    @Override
+		    		    public void handle(ActionEvent event) {
+		    		        if (event.getSource() instanceof CheckBox) {
+		    		            CheckBox chk = (CheckBox) event.getSource();
+		    		            System.out.println("Action performed on checkbox " + chk.getText());
+		    		            if (chk.isSelected()) {
+		    		            	System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + pizzaSelected.getPrezzoProperty().add(0.5).get());
+		    		            } else if (!chk.isSelected()){
+		    		            	System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + pizzaSelected.getPrezzoProperty().add(-0.5).get());
+		    		            }
+		    		        }
+		    		    }
+		    		};
+
+		    		chkDiavola.setOnAction(eh);
+		    	 
 		    }
 		    
 		    else {
@@ -251,7 +295,10 @@ public class PizzaController {
 		
 	}
 	
-
+	/**
+	 * Popola la tabella selezione pizze con tutte le pizze presenti nel Database
+	 * @param pizzaList
+	 */
 	private void populateTable(ObservableList<Pizza> pizzaList) {
 		tabCercaPizza.setItems(pizzaList);
 	}

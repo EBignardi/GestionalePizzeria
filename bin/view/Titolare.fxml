@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane prefHeight="900.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/" fx:controller="controller.TitolareController">
+   <top>
+      <Label fx:id="userlbl" text="User Welcome" BorderPane.alignment="CENTER" />
+   </top>
+</BorderPane>
