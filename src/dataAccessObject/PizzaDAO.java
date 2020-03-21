@@ -55,7 +55,7 @@ public class PizzaDAO {
 			return pizzaList;
 
 		}catch(SQLException e){
-			System.out.println("Error occured while deleting the record "+e);
+			System.out.println("Error occured while get all the record "+e);
 			e.printStackTrace();
 			throw e;
 		}
@@ -69,7 +69,7 @@ public class PizzaDAO {
 			return pizzaList;
 
 		}catch(SQLException e){
-			System.out.println("Error occured while deleting the record "+e);
+			System.out.println("Error occured while get all the record updated "+e);
 			e.printStackTrace();
 			throw e;
 		}

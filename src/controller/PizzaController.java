@@ -1,6 +1,8 @@
 package controller;
 
 import java.sql.SQLException;
+
+import dataAccessObject.IngredienteDAO;
 import dataAccessObject.PizzaDAO;
 
 import javafx.beans.property.FloatProperty;
@@ -21,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import model.Ingrediente;
 import model.Pizza;
 import java.util.Scanner;
 
@@ -98,7 +101,18 @@ public class PizzaController {
     @FXML
     private CheckBox chkWustrler;
     
+
+    @FXML // fx:id="txtCercaIngrediente"
+    private TextField txtCercaIngrediente; // Value injected by FXMLLoader
     
+    @FXML // fx:id="tabCercaIngrediente"
+    private TableView<Ingrediente> tabCercaIngrediente; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="colIngredienteSelezione"
+    private TableColumn<Ingrediente, String> colIngredienteSelezione; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="colCostoSelezione"
+    private TableColumn<Ingrediente, Float> colCostoSelezione; // Value injected by FXMLLoader
     
     /**
      * Action di Bottone Aggiungi Pizza:
@@ -169,6 +183,12 @@ public class PizzaController {
 		ObservableList<Pizza> pizzaList = PizzaDAO.getAllRecords();
 		populateTable(pizzaList);
 		
+		//inizializzazione delle colonne della tabella di selezione degli ingredienti
+		colIngredienteSelezione.setCellValueFactory(cellData -> cellData.getValue().getNomeIngredienteProperty());
+		colCostoSelezione.setCellValueFactory(cellData -> cellData.getValue().getCostoProperty().asObject());
+		ObservableList<Ingrediente> ingredienteList = IngredienteDAO.getAllRecords();
+		populateTableIngredienti(ingredienteList);
+		
 		/**
 		 * Metodo che ad ogni cambiamento del testo inserito nella textBox CercaPizza
 		 * cerca nel mio DataBase le pizze che corrispondono ai caratteri inseriti
@@ -181,6 +201,25 @@ public class PizzaController {
 				try {
 					ObservableList<Pizza> pizzaList = PizzaDAO.getAllRecordsAggiorna(newValue);
 					populateTable(pizzaList);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		/**
+		 * Metodo che ad ogni cambiamento del testo inserito nella textBox CercaIngrediente
+		 * cerca nel mio DataBase gli ingredienti che corrispondono ai caratteri inseriti
+		 */
+		txtCercaIngrediente.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue){
+				// this will run whenever text is changed
+				System.out.println("Ricevuto Cambiamento nella Ricerca Ingredienti");
+				try {
+					ObservableList<Ingrediente> ingredienteList = IngredienteDAO.getAllRecordsAggiorna(newValue);
+					populateTableIngredienti(ingredienteList);
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -303,6 +342,15 @@ public class PizzaController {
 		tabCercaPizza.setItems(pizzaList);
 	}
 
+	
+	/**
+	 * Popola la tabella selezione ingredienti con tutti gli ingredienti presenti nel Database
+	 * @param ingredientiList
+	 */
+	private void populateTableIngredienti(ObservableList<Ingrediente> ingredienteList) {
+		tabCercaIngrediente.setItems(ingredienteList);
+	}
+	
 	public Scene start() throws Exception {
 		Parent par = FXMLLoader.load(getClass().getResource("/view/Pizza.fxml"));
 		Scene homeScene = new Scene(par);
