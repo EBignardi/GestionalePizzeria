@@ -1,36 +1,46 @@
 package model;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
-//Classe pricipale
+//Classe pricipale per tutti i Clienti
 public class Cliente {
-	private Pizza elencoPizze;
-	private IntegerProperty numTavolo;
+	protected ArrayList<Pizza> elencoPizze;
+	protected IntegerProperty numTavolo;
 	
-	public Cliente(Pizza elencoPizze, IntegerProperty numTavolo) {
-		this.setElencoPizze(elencoPizze);
-		this.setNumTavolo(numTavolo);
+	//allocazione classe cliente senza input
+	public Cliente() {
+		this.setElencoPizze(new ArrayList<Pizza>());
+		this.numTavolo = new SimpleIntegerProperty();
 	}
 	
+	
+	public Cliente(ArrayList<Pizza> elencoPizze, IntegerProperty numTavolo) {
+		this.setElencoPizze(elencoPizze);
+		this.numTavolo = numTavolo;
+	}
+	
+	// metodi Numero Tavolo
 	public IntegerProperty getNumTavoloProperty() {
-		return numTavolo;
+		return this.numTavolo;
 	}
 
-	public void setNumTavolo(IntegerProperty numTavolo) {
-		this.numTavolo = numTavolo;
+	public void setNumTavolo(Integer numTavolo) {
+		this.numTavolo.set(numTavolo);
 	}
 	
 	public Integer getNumTavolo() {
 		return this.numTavolo.get();
 	}
 
-	public Pizza getElencoPizze() {
+	// metodi Elenco Pizze
+	public ArrayList<Pizza> getElencoPizze() {
 		return elencoPizze;
 	}
 
-	public void setElencoPizze(Pizza elencoPizze) {
+	public void setElencoPizze(ArrayList<Pizza> elencoPizze) {
 		this.elencoPizze = elencoPizze;
 	}
-
-
 }

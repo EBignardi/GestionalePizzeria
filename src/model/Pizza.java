@@ -23,6 +23,7 @@ public class Pizza {
 		this.ingredienti = ingredienti;
 	}
 
+	// metodi Nome Pizza
 	public StringProperty getNomePizzaProperty() {
 		return nomePizza;
 	}
@@ -35,6 +36,7 @@ public class Pizza {
 		return this.nomePizza.get();
 	}
 
+	// metodi Prezzo Pizza
 	public FloatProperty getPrezzoProperty() {
 		return this.prezzo;
 	}
@@ -47,6 +49,7 @@ public class Pizza {
 		return this.prezzo.get();
 	}
 
+	// metodi Ingredienti Pizza
 	public StringProperty getIngredientiProperty() {
 		return ingredienti;
 	}

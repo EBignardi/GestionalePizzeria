@@ -139,8 +139,6 @@ public class PizzaController {
 			Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), pizzaSelezionata.getPrezzoProperty(), pizzaSelezionata.getIngredientiProperty());
 			tabOrdine.getItems().add(pizzaSelected);
 		}
-		
-		
 	}
 	
 	/**

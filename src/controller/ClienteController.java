@@ -3,6 +3,8 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.joda.time.LocalTime;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import manager.WindowsManager;
+import model.*;
 
 public class ClienteController implements Initializable {
 
@@ -26,20 +29,20 @@ public class ClienteController implements Initializable {
 	private URL location;
 
 	@FXML // fx:id="tabOrdini"
-	private TableView<?> tabOrdini; // Value injected by FXMLLoader
+	private TableView<ClienteSpedizione> tabOrdini; // Value injected by FXMLLoader
 
 	@FXML // fx:id="colonnaOrario"
-	private TableColumn<?, ?> colonnaOrario; // Value injected by FXMLLoader
+	private TableColumn<ClienteSpedizione, LocalTime> colOrario; // Value injected by FXMLLoader
 
 	@FXML // fx:id="colonnaIndirizzo"
-	private TableColumn<?, ?> colonnaIndirizzo; // Value injected by FXMLLoader
+	private TableColumn<ClienteSpedizione, String> colIndirizzo; // Value injected by FXMLLoader
 
 	@FXML // fx:id="colonnaPizze"
-	private TableColumn<?, ?> colonnaPizze; // Value injected by FXMLLoader
+	private TableColumn<ClienteSpedizione, Pizza> colPizze; // Value injected by FXMLLoader
 
 	@FXML // fx:id="orarioCliente"
-	private ComboBox<?> orarioCliente; // Value injected by FXMLLoader
-
+	private ComboBox<LocalTime> orarioCliente; // Value injected by FXMLLoader
+	
 	@FXML // fx:id="txtNomeCliente"
 	private TextField txtNomeCliente; // Value injected by FXMLLoader
 
@@ -63,6 +66,10 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	void buttonPizzeAction(ActionEvent event) throws Exception {
+		System.out.println("Salvataggio dei dati relativi al cliente: \n"+ 
+				txtNomeCliente.getText() + "\n" + txtTelefonoCliente.getText() + "\n" + txtCivicoCliente.getText() + "\n" +
+				dataCliente.toString() + "\n" + orarioCliente.toString());
+		
 		System.out.println("APERTURA Finestra Scelta delle Pizze");
 		WindowsManager.setPizza();
 	}
@@ -77,9 +84,9 @@ public class ClienteController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		assert tabOrdini != null : "fx:id=\"tabOrdini\" was not injected: check your FXML file 'Cliente.fxml'.";
-		assert colonnaOrario != null : "fx:id=\"colonnaOrario\" was not injected: check your FXML file 'Cliente.fxml'.";
-		assert colonnaIndirizzo != null : "fx:id=\"colonnaIndirizzo\" was not injected: check your FXML file 'Cliente.fxml'.";
-		assert colonnaPizze != null : "fx:id=\"colonnaPizze\" was not injected: check your FXML file 'Cliente.fxml'.";
+		assert colOrario != null : "fx:id=\"colonnaOrario\" was not injected: check your FXML file 'Cliente.fxml'.";
+		assert colIndirizzo != null : "fx:id=\"colonnaIndirizzo\" was not injected: check your FXML file 'Cliente.fxml'.";
+		assert colPizze != null : "fx:id=\"colonnaPizze\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert orarioCliente != null : "fx:id=\"orarioCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert txtNomeCliente != null : "fx:id=\"txtNomeCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert txtTelefonoCliente != null : "fx:id=\"txtTelefonoCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
@@ -88,6 +95,13 @@ public class ClienteController implements Initializable {
 		assert dataCliente != null : "fx:id=\"dataCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert btnSelezionePizze != null : "fx:id=\"btnSelezionePizze\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert btnSelezioneBevande != null : "fx:id=\"btnSelezioneBevande\" was not injected: check your FXML file 'Cliente.fxml'.";
+		
+		/**
+		//inizializzazione delle colonne della tabella riepilogo ordini
+		colOrario.setCellValueFactory(cellData -> cellData.getValue().getOrario().asObject());
+		colIndirizzo.setCellValueFactory(cellData -> cellData.getValue().getIndirizzoProperty().asObject());
+		colPizze.setCellValueFactory(cellData -> cellData.getValue().getElencoPizze());
+		**/
 		
 	}
 }
