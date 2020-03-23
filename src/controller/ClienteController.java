@@ -1,9 +1,14 @@
 package controller;
 
+
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-import org.joda.time.LocalTime;
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.*;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +23,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import manager.WindowsManager;
-import model.*;
+import model.ClienteSpedizione;
+import model.Pizza;
 
 public class ClienteController implements Initializable {
 
@@ -64,11 +70,42 @@ public class ClienteController implements Initializable {
 	@FXML // fx:id="btnSelezioneBevande"
 	private Button btnSelezioneBevande; // Value injected by FXMLLoader
 
+	//formatter utilizzati per DATA e ORARIO
+	DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd-MM-yy");
+	DateTimeFormatter formatoOra = DateTimeFormatter.ofPattern("HH:mm");
+
 	@FXML
 	void buttonPizzeAction(ActionEvent event) throws Exception {
-		System.out.println("Salvataggio dei dati relativi al cliente: \n"+ 
-				txtNomeCliente.getText() + "\n" + txtTelefonoCliente.getText() + "\n" + txtCivicoCliente.getText() + "\n" +
-				dataCliente.toString() + "\n" + orarioCliente.toString());
+		System.out.println("Controllo dei dati inseriti riguardanti il Cliente");
+		
+		if(!(StringUtils.isAlpha(txtNomeCliente.getText())))
+			System.out.println("Nome Cliente NON valido");
+		
+		if((!(StringUtils.isNumeric(txtTelefonoCliente.getText()))) || (txtTelefonoCliente.getText().length() > 11))
+			System.out.println("Numero Telefono NON valido");
+		
+		if(!(StringUtils.isAlpha(txtNomeCliente.getText())))
+			System.out.println("Indirizzo NON valido");
+		
+		if(!(StringUtils.isNumeric(txtCivicoCliente.getText())))
+			System.out.println("Civico NON valido");
+		
+		if (((dataCliente.getValue().format(formatoData)).compareTo(LocalDate.now().format(formatoData)) < 0))
+			System.out.println("Data inserita NON valida");
+		
+		//Nella data odierna non posso prendere ordini con una data inferiore a quella attuale
+		if (((dataCliente.getValue()).isEqual(LocalDate.now())) && (orarioCliente.getValue().isBefore(LocalTime.now())))
+			System.out.println("Orario inserito NON valido");
+		
+		System.out.println("Salvataggio dei dati relativi al cliente: \n" + 
+				"Nome: " + txtNomeCliente.getText() + "\n" + 
+				"Telefono: " + txtTelefonoCliente.getText() + "\n" +
+				"Indirizzo: " + txtIndirizzoCliente.getText() + "\n" +
+				"Civico: " + txtCivicoCliente.getText() + "\n" +
+				"Data Ordine: " + dataCliente.getValue().format(formatoData) + "\n" + 
+				"Orario Ordine: " + orarioCliente.getValue().format(formatoOra));
+		
+		//inserisco i dati nel DataBase nella Tabella Cliente
 		
 		System.out.println("APERTURA Finestra Scelta delle Pizze");
 		WindowsManager.setPizza();
@@ -95,6 +132,19 @@ public class ClienteController implements Initializable {
 		assert dataCliente != null : "fx:id=\"dataCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert btnSelezionePizze != null : "fx:id=\"btnSelezionePizze\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert btnSelezioneBevande != null : "fx:id=\"btnSelezioneBevande\" was not injected: check your FXML file 'Cliente.fxml'.";
+		
+		//inizializzo i valori della ComboBox orario
+		orarioCliente.getItems().addAll(LocalTime.now(),
+										LocalTime.parse("18:30"), LocalTime.parse("18:45"),
+										LocalTime.parse("19:00"), LocalTime.parse("19:15"), LocalTime.parse("19:30"), LocalTime.parse("19:45"), 
+										LocalTime.parse("20:00"), LocalTime.parse("20:15"), LocalTime.parse("20:30"), LocalTime.parse("20:45"),
+										LocalTime.parse("21:00"), LocalTime.parse("21:15"), LocalTime.parse("21:30"), LocalTime.parse("21:45"),
+										LocalTime.parse("22:00"), LocalTime.parse("22:15"), LocalTime.parse("22:30"), LocalTime.parse("22:45"),
+										LocalTime.parse("23:00"), LocalTime.parse("23:15"), LocalTime.parse("23:30"), LocalTime.parse("23:45")
+										);
+		
+		//inizializzo la data a quella attuale per non avere problemi di data nulla
+		dataCliente.setValue(LocalDate.now());
 		
 		/**
 		//inizializzazione delle colonne della tabella riepilogo ordini

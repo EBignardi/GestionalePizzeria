@@ -107,31 +107,7 @@
                               <Font size="35.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="orarioCliente" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                        	<items>
-                        	 	<FXCollections fx:factory="observableArrayList">
-            					<String fx:value="18:30" />
-           					 	<String fx:value="18:45" />
-            					<String fx:value="19:00" />
-            					<String fx:value="19:15" />
-            					<String fx:value="19:30" />
-            					<String fx:value="19:45" />
-            					<String fx:value="20:00" />
-            					<String fx:value="20:15" />
-            					<String fx:value="20:30" />
-            					<String fx:value="20:45" />
-            					<String fx:value="21:00" />
-            					<String fx:value="21:15" />
-            					<String fx:value="21:30" />
-            					<String fx:value="21:45" />
-            					<String fx:value="22:00" />
-            					<String fx:value="22:15" />
-            					<String fx:value="22:30" />
-            					<String fx:value="22:45" />
-            					<String fx:value="23:00" />
-        						</FXCollections>
-                        	</items>
-                        </ComboBox>
+                        <ComboBox fx:id="orarioCliente" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                         <TextField fx:id="txtNomeCliente" GridPane.columnIndex="1" />
                         <TextField fx:id="txtTelefonoCliente" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="txtIndirizzoCliente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
