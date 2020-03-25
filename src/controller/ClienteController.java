@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.*;
 
+import dataAccessObject.ClienteDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -106,6 +106,8 @@ public class ClienteController implements Initializable {
 				"Orario Ordine: " + orarioCliente.getValue().format(formatoOra));
 		
 		//inserisco i dati nel DataBase nella Tabella Cliente
+		ClienteDAO.insertCliente(txtNomeCliente.getText(), txtTelefonoCliente.getText(), txtIndirizzoCliente.getText(),  
+								txtCivicoCliente.getText(), dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra));
 		
 		System.out.println("APERTURA Finestra Scelta delle Pizze");
 		WindowsManager.setPizza();
