@@ -24,19 +24,24 @@ public class ClienteDAO {
 		}
 	}
 	
-	public static ArrayList<String> ordiniPerMese() throws SQLException, ClassNotFoundException {
+	public static int[] ordiniPerMese() throws SQLException, ClassNotFoundException {
 		String sql = "SELECT count(*) as ordini_mensili FROM Cliente GROUP BY strftime('%m',data); ";
 		try {
 			DBUtil.dbExcecuteQuery(sql);
 			ResultSet rsSet = DBUtil.dbExecute(sql);
-			ArrayList<String> monthResultList = new ArrayList<>(); 
+			
+			int[] ordiniMese = new int[12];
+			int i = 0;
+			
 			while(rsSet.next()) {
-					monthResultList.add(rsSet.getString("ordini_mensili"));
+					ordiniMese[i] = (rsSet.getInt("ordini_mensili"));
+					i++;
 				}
-			return monthResultList ;
+			
+			return ordiniMese ;
 		}
 		catch(SQLException e) {
-			System.out.println("Exception occur while inserting the data "+e);
+			System.out.println("Exception occur while inserting the data " + e);
 			e.printStackTrace();
 			throw e;
 		}
