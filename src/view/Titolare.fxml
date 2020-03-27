@@ -10,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TitolareController">
    <children>
       <Label fx:id="userlbl" layoutX="435.0" layoutY="39.0" text="Welcome USERNAME" />
-      <LineChart fx:id="chartVendite" layoutX="50.0" layoutY="73.0" prefHeight="340.0" prefWidth="505.0" title="Vendite Mensili">
+      <LineChart fx:id="chartOrdini" layoutX="50.0" layoutY="73.0" prefHeight="258.0" prefWidth="932.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -18,5 +18,15 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
+      <LineChart fx:id="chartVendite" layoutX="54.0" layoutY="356.0" prefHeight="258.0" prefWidth="932.0">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </LineChart>
+      <PieChart fx:id="top3pizze" layoutX="118.0" layoutY="601.0" prefHeight="285.0" prefWidth="356.0" />
+      <PieChart fx:id="top3clienti" layoutX="559.0" layoutY="601.0" prefHeight="285.0" prefWidth="356.0" />
    </children>
 </AnchorPane>
