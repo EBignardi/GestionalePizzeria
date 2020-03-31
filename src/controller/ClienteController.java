@@ -71,7 +71,7 @@ public class ClienteController implements Initializable {
 	private Button btnSelezioneBevande; // Value injected by FXMLLoader
 
 	//formatter utilizzati per DATA e ORARIO
-	DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd-MM-yy");
+	DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	DateTimeFormatter formatoOra = DateTimeFormatter.ofPattern("HH:mm");
 
 	@FXML

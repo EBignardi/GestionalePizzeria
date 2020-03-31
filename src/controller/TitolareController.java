@@ -32,7 +32,6 @@ public class TitolareController implements Initializable {
     
     @FXML // fx:id="chartVendite"
     private LineChart<String, Number> chartVendite; // Value injected by FXMLLoader
-    
 
     @FXML // fx:id="top3clienti"
     private PieChart top3clienti; // Value injected by FXMLLoader
@@ -53,7 +52,6 @@ public class TitolareController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		userlbl.setText("Welcome Ciani");
 		
 		setGraficoOrdini();
@@ -104,7 +102,6 @@ public class TitolareController implements Initializable {
 		/*try {
 			fatturatoMese = ;
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Errore nella copiatura array ordiniMese");
 			e.printStackTrace();
 		}*/

@@ -2,13 +2,7 @@ package dataAccessObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import dbUtil.DBUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import model.Cliente;
-
 
 public class ClienteDAO {
 	public static void insertCliente(String nomeCliente, String telefono, String indirizzo, String civico, String data, String orario)throws SQLException, ClassNotFoundException {
