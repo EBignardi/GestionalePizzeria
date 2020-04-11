@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -21,6 +22,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
+import javafx.stage.Screen;
 
 public class TitolareController implements Initializable {
 
@@ -46,7 +48,11 @@ public class TitolareController implements Initializable {
     
     public Scene start() throws Exception {		
 		Parent par = FXMLLoader.load(getClass().getResource("/view/Titolare.fxml"));
-		Scene homeScene = new Scene(par);
+		
+		//settaggio fullScreen
+		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		Scene homeScene = new Scene(par, screenBounds.getWidth(), screenBounds.getHeight());
+		
 		return homeScene;
 	}
 	

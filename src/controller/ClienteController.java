@@ -7,6 +7,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.lang3.StringUtils;
 
 import dataAccessObject.ClienteDAO;
@@ -14,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,6 +25,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Screen;
 import manager.WindowsManager;
 import model.ClienteSpedizione;
 import model.Pizza;
@@ -76,47 +80,88 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	void buttonPizzeAction(ActionEvent event) throws Exception {
+		//variabile che controlla se tutti i dati inseriti soono giusti
+		int flag = 0;
+
 		System.out.println("Controllo dei dati inseriti riguardanti il Cliente");
-		
-		if(!(StringUtils.isAlpha(txtNomeCliente.getText())))
-			System.out.println("Nome Cliente NON valido");
-		
-		if((!(StringUtils.isNumeric(txtTelefonoCliente.getText()))) || (txtTelefonoCliente.getText().length() > 11))
-			System.out.println("Numero Telefono NON valido");
-		
-		if(!(StringUtils.isAlpha(txtNomeCliente.getText())))
-			System.out.println("Indirizzo NON valido");
-		
-		if(!(StringUtils.isNumeric(txtCivicoCliente.getText())))
-			System.out.println("Civico NON valido");
-		
-		if (((dataCliente.getValue().format(formatoData)).compareTo(LocalDate.now().format(formatoData)) < 0))
+
+		if (!(txtNomeCliente.getText().isEmpty())) {
+			if (!(StringUtils.isAlpha(txtNomeCliente.getText()))) {
+				flag = 1;
+				System.out.println("Nome Cliente NON valido");
+				JOptionPane.showMessageDialog(null, "Errore inserimento NOME CLIENTE");
+			}
+		}
+
+		if (!(txtTelefonoCliente.getText().isEmpty())) {
+			if((!(StringUtils.isNumeric(txtTelefonoCliente.getText()))) || (txtTelefonoCliente.getText().length() > 11)) {
+				flag = 1;
+				System.out.println("Numero Telefono NON valido");
+				JOptionPane.showMessageDialog(null, "Errore inserimento TELEFONO");
+			}
+		}
+
+		if (!(txtIndirizzoCliente.getText().isEmpty())) {
+			if(!(StringUtils.isAlphaSpace(txtIndirizzoCliente.getText()))) {
+				flag = 1;
+				System.out.println("Indirizzo NON valido");
+				JOptionPane.showMessageDialog(null, "Errore inserimento INDIRIZZO");
+			}
+		}
+
+		if (!(txtCivicoCliente.getText().isEmpty())) {
+			if(!(StringUtils.isNumeric(txtCivicoCliente.getText()))) {
+				flag = 1;
+				System.out.println("Civico NON valido");
+				JOptionPane.showMessageDialog(null, "Errore inserimento CIVICO");
+			}
+		}
+
+		if (((dataCliente.getValue().format(formatoData)).compareTo(LocalDate.now().format(formatoData)) < 0)) {
+			flag = 1;
 			System.out.println("Data inserita NON valida");
-		
-		//Nella data odierna non posso prendere ordini con una data inferiore a quella attuale
-		if (((dataCliente.getValue()).isEqual(LocalDate.now())) && (orarioCliente.getValue().isBefore(LocalTime.now())))
-			System.out.println("Orario inserito NON valido");
-		
-		System.out.println("Salvataggio dei dati relativi al cliente: \n" + 
-				"Nome: " + txtNomeCliente.getText() + "\n" + 
-				"Telefono: " + txtTelefonoCliente.getText() + "\n" +
-				"Indirizzo: " + txtIndirizzoCliente.getText() + "\n" +
-				"Civico: " + txtCivicoCliente.getText() + "\n" +
-				"Data Ordine: " + dataCliente.getValue().format(formatoData) + "\n" + 
-				"Orario Ordine: " + orarioCliente.getValue().format(formatoOra));
-		
-		//inserisco i dati nel DataBase nella Tabella Cliente
-		ClienteDAO.insertCliente(txtNomeCliente.getText(), txtTelefonoCliente.getText(), txtIndirizzoCliente.getText(),  
-								txtCivicoCliente.getText(), dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra));
-		
-		System.out.println("APERTURA Finestra Scelta delle Pizze");
-		WindowsManager.setPizza();
+			JOptionPane.showMessageDialog(null, "Errore inserimento DATA");
+		}
+
+		if (orarioCliente.getValue() != null) {
+			//Nella data odierna non posso prendere ordini con una data inferiore a quella attuale
+			if (((dataCliente.getValue()).isEqual(LocalDate.now())) && (orarioCliente.getValue().isBefore(LocalTime.now()))) {
+				flag = 1;
+				System.out.println("Orario inserito NON valido");
+				JOptionPane.showMessageDialog(null, "Errore inserimento ORARIO");			
+			}
+		} else {
+			System.out.println("Orario NON inserito, setto quello corrente");
+			orarioCliente.setValue(LocalTime.now());
+		}
+
+		if (flag == 0) {
+			System.out.println("Salvataggio dei dati relativi al cliente: \n" + 
+					"Nome: " + txtNomeCliente.getText() + "\n" + 
+					"Telefono: " + txtTelefonoCliente.getText() + "\n" +
+					"Indirizzo: " + txtIndirizzoCliente.getText() + "\n" +
+					"Civico: " + txtCivicoCliente.getText() + "\n" +
+					"Data Ordine: " + dataCliente.getValue().format(formatoData) + "\n" + 
+					"Orario Ordine: " + orarioCliente.getValue().format(formatoOra));
+
+			//inserisco i dati nel DataBase nella Tabella Cliente
+			ClienteDAO.insertCliente(txtNomeCliente.getText(), txtTelefonoCliente.getText(), txtIndirizzoCliente.getText(),  
+					txtCivicoCliente.getText(), dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra));
+
+			System.out.println("APERTURA Finestra Scelta delle Pizze");
+			WindowsManager.setPizza();
+		}
+
 	}
 
 	public Scene start() throws Exception {
 		Parent par = FXMLLoader.load(getClass().getResource("/view/Cliente.fxml"));
-		Scene homeScene = new Scene(par);
-		return homeScene;
+		
+		//settaggio fullScreen
+		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		Scene clienteScene = new Scene(par, screenBounds.getWidth(), screenBounds.getHeight());
+
+		return clienteScene;
 	}
 	
 	@Override

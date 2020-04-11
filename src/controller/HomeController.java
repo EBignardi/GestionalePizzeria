@@ -11,15 +11,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import manager.WindowsManager;
 
 public class HomeController implements Initializable{
-	
-	@FXML
-	private Label isConnected;
 	
     @FXML // fx:id="homePane"
     private BorderPane homePane; // Value injected by FXMLLoader
@@ -68,7 +64,6 @@ public class HomeController implements Initializable{
         assert btnTitolare != null : "fx:id=\"btnTitolare\" was not injected: check your FXML file 'Home.fxml'.";
         assert btnCliente != null : "fx:id=\"btnCliente\" was not injected: check your FXML file 'Home.fxml'.";
 		// TODO Auto-generated method stub
-		
 	}
 	
 	

@@ -14,6 +14,7 @@ public class WindowsManager {
 	private static PizzaController pizza = new PizzaController();
 	
 	public static void start() throws Exception {
+		root.setMaximized(true);
 		root.setScene(home.start());
 		root.show();
 	}
