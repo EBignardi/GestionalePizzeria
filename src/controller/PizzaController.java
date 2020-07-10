@@ -6,6 +6,8 @@ import dataAccessObject.IngredienteDAO;
 import dataAccessObject.PizzaDAO;
 
 import javafx.beans.property.FloatProperty;
+import javafx.beans.property.ReadOnlyFloatWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,7 +26,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableColumn.CellDataFeatures;
+import javafx.scene.control.TreeTableView;
 import javafx.stage.Screen;
+import javafx.util.Callback;
 import model.Ingrediente;
 import model.Pizza;
 import java.util.Scanner;
@@ -40,9 +47,6 @@ public class PizzaController {
     @FXML // fx:id="GroupImpasto"
     private ToggleGroup GroupImpasto; // Value injected by FXMLLoader
 
-    @FXML // fx:id="colPizza"
-    private TableColumn<Pizza, String> colPizza; // Value injected by FXMLLoader
-
     @FXML // fx:id="rdoIntegrale"
     private RadioButton rdoIntegrale; // Value injected by FXMLLoader
 
@@ -52,6 +56,15 @@ public class PizzaController {
     @FXML // fx:id="tabCercaPizza"
     private TableView<Pizza> tabCercaPizza; // Value injected by FXMLLoader
 
+    @FXML // fx:id="tabRiepilogo"
+    private TableView<Pizza> tabRiepilogo; // Value injected by FXMLLoader
+
+    @FXML // fx:id="colPizza"
+    private TableColumn<Pizza, String> colPizza; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="colPrezzo"
+    private TableColumn<Pizza, Float> colPrezzo; // Value injected by FXMLLoader
+    
     @FXML // fx:id="rdoPomodoroSì"
     private RadioButton rdoPomodoroSì; // Value injected by FXMLLoader
 
@@ -78,10 +91,7 @@ public class PizzaController {
 
     @FXML // fx:id="rdoPomodoroNo"
     private RadioButton rdoPomodoroNo; // Value injected by FXMLLoader
-
-    @FXML // fx:id="colPrezzo"
-    private TableColumn<Pizza, Float> colPrezzo; // Value injected by FXMLLoader
-
+    
     @FXML // fx:id="rdoNormale"
     private RadioButton rdoNormale; // Value injected by FXMLLoader
 
@@ -104,6 +114,13 @@ public class PizzaController {
     private CheckBox chkWustrler;
     
 
+    @FXML // fx:id="tabRiepilogo1"
+    private TreeTableView<Pizza> tabRiepilogo1; // Value injected by FXMLLoader
+    @FXML // fx:id="colPrezzo1"
+    private TreeTableColumn<Pizza, Float> colPrezzo1; // Value injected by FXMLLoader
+    @FXML // fx:id="colPizza1"
+    private TreeTableColumn<Pizza, String> colPizza1; // Value injected by FXMLLoader
+    
     @FXML // fx:id="txtCercaIngrediente"
     private TextField txtCercaIngrediente; // Value injected by FXMLLoader
     
@@ -139,7 +156,15 @@ public class PizzaController {
 			System.out.println("Prezzo Pizza selezionata = " + prezzoPizzaSelezionata.get());
 			
 			Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), pizzaSelezionata.getPrezzoProperty(), pizzaSelezionata.getIngredientiProperty());
-			tabOrdine.getItems().add(pizzaSelected);
+			tabRiepilogo.getItems().add(pizzaSelected);
+			
+			
+			///////////////////////////////////////////////////////////////////////////////////////////
+			//aggiunta della pizza nella tabella tree
+			TreeItem<Pizza> nomePizza = new TreeItem<Pizza>();
+			TreeItem<Pizza> ingrediente1 = new TreeItem<Pizza>();
+			nomePizza.getChildren().setAll(ingrediente1);
+			tabRiepilogo1.setRoot(nomePizza);
 		}
 	}
 	
@@ -176,6 +201,13 @@ public class PizzaController {
 		//inizializzazione delle colonne della tabella riepilogo ordine
 		colPizza.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
 		colPrezzo.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
+	
+		//inizializzazione delle colonne della tabella riepilogo ordine 1
+		colPizza1.setCellValueFactory(
+				(TreeTableColumn.CellDataFeatures<Pizza, String> param) -> param.getValue().getValue().getNomePizzaProperty());
+		colPrezzo1.setCellValueFactory(
+				(TreeTableColumn.CellDataFeatures<Pizza, Float> param) -> param.getValue().getValue().getPrezzoProperty().asObject());
+		
 		
 		//inizializzazione delle colonne della tabella di selezione della pizza
 		colPizzaSelezione.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());

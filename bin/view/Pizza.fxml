@@ -46,11 +46,11 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView fx:id="tabOrdine" layoutX="-1.0" prefHeight="1202.0" prefWidth="350.0">
-                     <columns>
-                        <TableColumn fx:id="colPizza" prefWidth="226.0" text="Pizza" />
-                        <TableColumn fx:id="colPrezzo" minWidth="0.0" prefWidth="123.0" text="Prezzo" />
-                     </columns>
+                  <TableView fx:id="tabRiepilogo" layoutX="17.0" layoutY="34.0" prefHeight="567.0" prefWidth="310.0">
+                    <columns>
+                      <TableColumn fx:id="colPizza" prefWidth="191.0" text="Pizza" />
+                      <TableColumn fx:id="colPrezzo" prefWidth="118.0" text="Prezzo" />
+                    </columns>
                   </TableView>
                </children>
             </AnchorPane>
@@ -106,10 +106,10 @@
                         <Insets />
                      </opaqueInsets>
                   </GridPane>
-                  <TableView fx:id="tabCercaPizza" layoutX="398.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="249.0">
+                  <TableView fx:id="tabCercaPizza" layoutX="398.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="233.0">
                     <columns>
-                      <TableColumn fx:id="colPizzaSelezione" minWidth="0.0" prefWidth="164.0" text="Pizza" />
-                      <TableColumn fx:id="colPrezzoSelezione" prefWidth="96.0" text="Prezzo" />
+                      <TableColumn fx:id="colPizzaSelezione" minWidth="0.0" prefWidth="152.0" text="Pizza" />
+                      <TableColumn fx:id="colPrezzoSelezione" text="Prezzo" />
                     </columns>
                   </TableView>
                </children>
@@ -191,6 +191,12 @@
                           </columns>
                         </TableView>
                         <TextField fx:id="txtCercaIngrediente" promptText="Ingrediente" GridPane.rowIndex="7" />
+                        <TreeTableView fx:id="tabRiepilogo1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="5" GridPane.rowSpan="3">
+                          <columns>
+                            <TreeTableColumn fx:id="colPizza1" prefWidth="183.0" text="Pizza" />
+                            <TreeTableColumn fx:id="colPrezzo1" prefWidth="107.0" text="Prezzo" />
+                          </columns>
+                        </TreeTableView>
                      </children>
                   </GridPane>
                </children>
