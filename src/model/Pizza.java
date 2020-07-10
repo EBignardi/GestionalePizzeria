@@ -9,6 +9,8 @@ public class Pizza {
 	private StringProperty nomePizza;
 	private FloatProperty prezzo;
 	private StringProperty ingredienti;
+	private String bibita;
+
 	
 	
 	public Pizza() {
@@ -21,6 +23,13 @@ public class Pizza {
 		this.nomePizza = nomePizza;
 		this.prezzo = prezzo;
 		this.ingredienti = ingredienti;
+	}
+	
+	public Pizza(StringProperty nomePizza, FloatProperty prezzo, StringProperty ingredienti, String bibita2) {
+		this.nomePizza = nomePizza;
+		this.prezzo = prezzo;
+		this.ingredienti = ingredienti;
+		this.bibita =bibita2;
 	}
 
 	// metodi Nome Pizza
@@ -38,7 +47,7 @@ public class Pizza {
 
 	// metodi Prezzo Pizza
 	public FloatProperty getPrezzoProperty() {
-		return this.prezzo;
+		return prezzo;
 	}
 
 	public void setPrezzo(float prezzo) {
@@ -61,5 +70,14 @@ public class Pizza {
 	public String getIngredienti() {
 		return this.ingredienti.get();
 	}
+	
+	public String getBibita() {
+		return bibita;
+	}
+	
+	public void setBibita(String bibita) {
+		this.bibita = bibita;
+	}
+
 	
 }

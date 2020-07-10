@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import dataAccessObject.ClienteDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,13 +22,18 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Screen;
+import manager.WindowsManager;
 
 public class TitolareController implements Initializable {
 
 	@FXML
 	private Label userlbl;
+	
+	@FXML // fx:id="btn_logout"
+	private Button btn_logout;
 	
     @FXML // fx:id="chartVendite"
     private LineChart<String, Number> chartOrdini; // Value injected by FXMLLoader
@@ -40,6 +46,9 @@ public class TitolareController implements Initializable {
 
     @FXML // fx:id="top3clienti"
     private PieChart top3pizze; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="TitolareBackHome"
+	private Button TitolareBackHome; // Value injected by FXMLLoader
     
     @FXML
     private CategoryAxis xAxis;
@@ -55,6 +64,17 @@ public class TitolareController implements Initializable {
 		
 		return homeScene;
 	}
+    
+    
+    @FXML
+    void Logout(ActionEvent event) throws Exception {
+    	System.out.println("Ritorno a finestra home");
+    	WindowsManager.start();
+    }
+    
+    
+    
+    
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -135,6 +155,13 @@ public class TitolareController implements Initializable {
 
 		top3clienti.getData().addAll(pieChartData);
 	}
+	
+	 @FXML
+	    void BackHomeT(ActionEvent event) throws Exception {
+	    	System.out.println("Ritorno a finestra home");
+	    	WindowsManager.start();
+	    }
+	 
 
 	public void setTop3Pizze() {
 		ObservableList<PieChart.Data> pieChartData =

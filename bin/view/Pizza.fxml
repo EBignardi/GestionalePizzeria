@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -14,6 +9,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -21,17 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane styleClass="titulo" stylesheets="@Tema.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PizzaController">
-   <top>
-      <Label text="Selezione Pizze" textAlignment="CENTER" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Arial Black" size="50.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets top="25.0" />
-         </BorderPane.margin>
-      </Label>
-   </top>
+<BorderPane prefHeight="1487.0" prefWidth="1469.0" styleClass="titulo" stylesheets="@Tema.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PizzaController">
    <left>
       <SplitPane dividerPositions="0.1376720901126408" orientation="VERTICAL" prefHeight="801.0" prefWidth="349.0" BorderPane.alignment="CENTER">
         <items>
@@ -46,11 +32,20 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
+<<<<<<< HEAD
                   <TableView fx:id="tabRiepilogo" layoutX="17.0" layoutY="34.0" prefHeight="567.0" prefWidth="310.0">
                     <columns>
                       <TableColumn fx:id="colPizza" prefWidth="191.0" text="Pizza" />
                       <TableColumn fx:id="colPrezzo" prefWidth="118.0" text="Prezzo" />
                     </columns>
+=======
+                  <TableView fx:id="tabOrdine" prefHeight="1202.0" prefWidth="350.0">
+                     <columns>
+                        <TableColumn fx:id="colPizza" prefWidth="158.0" text="Pizza" />
+                        <TableColumn fx:id="colBibita" prefWidth="93.0" text="Bibita" />
+                        <TableColumn fx:id="colPrezzo" minWidth="0.0" prefWidth="95.0" text="Prezzo" />
+                     </columns>
+>>>>>>> branch 'master' of https://github.com/EBignardi/GestionalePizzeria.git
                   </TableView>
                </children>
             </AnchorPane>
@@ -91,12 +86,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Button fx:id="btnModifica" mnemonicParsing="false" text="Modifica" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnAggiungi" mnemonicParsing="false" onAction="#btnAggiungiPizzaAction" text="Aggiungi" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="btnModifica" mnemonicParsing="false" text="Modifica" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -118,16 +108,14 @@
                <children>
                   <GridPane layoutX="14.0" layoutY="14.0" prefHeight="670.0" prefWidth="970.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" prefWidth="121.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="113.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="144.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.0" minWidth="0.0" prefWidth="114.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="0.0" prefWidth="227.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="124.0" minWidth="0.0" prefWidth="17.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="163.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="10.0" prefWidth="43.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -140,6 +128,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="Impasto">
@@ -147,49 +136,50 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <CheckBox fx:id="chkDoppio" mnemonicParsing="false" text="Doppio" GridPane.columnIndex="6" />
-                        <RadioButton fx:id="rdoNormale" mnemonicParsing="false" selected="true" text="Normale" GridPane.columnIndex="2">
+                        <CheckBox fx:id="chkDoppio" mnemonicParsing="false" prefHeight="27.0" prefWidth="239.0" text="Doppio (+1.00 euro)" GridPane.columnIndex="4" />
+                        <RadioButton fx:id="rdoNormale" mnemonicParsing="false" selected="true" text="Normale" GridPane.columnIndex="1">
                            <toggleGroup>
                               <ToggleGroup fx:id="GroupImpasto" />
                            </toggleGroup></RadioButton>
-                        <RadioButton fx:id="rdoIntegrale" mnemonicParsing="false" text="Integrale" toggleGroup="$GroupImpasto" GridPane.columnIndex="3" />
-                        <RadioButton fx:id="rdoKamut" mnemonicParsing="false" text="Kamut" toggleGroup="$GroupImpasto" GridPane.columnIndex="4" />
+                        <RadioButton fx:id="rdoIntegrale" mnemonicParsing="false" text="Integrale" toggleGroup="$GroupImpasto" GridPane.columnIndex="2" />
+                        <RadioButton fx:id="rdoKamut" mnemonicParsing="false" text="Kamut" toggleGroup="$GroupImpasto" GridPane.columnIndex="3" />
                         <Label text="Mozzarella" GridPane.columnSpan="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <RadioButton fx:id="rdoMozzarellaSì" mnemonicParsing="false" text="Sì" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <RadioButton fx:id="rdoMozzarellaSì" mnemonicParsing="false" text="Sì" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <toggleGroup>
                               <ToggleGroup fx:id="GroupMozzarella" />
                            </toggleGroup></RadioButton>
-                        <RadioButton fx:id="rdoMozzarellaNo" mnemonicParsing="false" text="No" toggleGroup="$GroupMozzarella" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Label text="Pomodoro" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <RadioButton fx:id="rdoMozzarellaNo" mnemonicParsing="false" text="No" toggleGroup="$GroupMozzarella" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label text="Pomodoro" GridPane.columnSpan="2" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <RadioButton fx:id="rdoPomodoroSì" mnemonicParsing="false" text="Sì" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                        <RadioButton fx:id="rdoPomodoroSì" mnemonicParsing="false" text="Sì" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <toggleGroup>
                               <ToggleGroup fx:id="GroupPomodoro" />
                            </toggleGroup></RadioButton>
-                        <RadioButton fx:id="rdoPomodoroNo" mnemonicParsing="false" text="No" toggleGroup="$GroupPomodoro" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-                        <Label text="Ingredienti" textFill="#0f00ae" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <RadioButton fx:id="rdoPomodoroNo" mnemonicParsing="false" text="No" toggleGroup="$GroupPomodoro" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label text="Ingredienti aggiuntivi" textFill="#0f00ae" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <font>
                               <Font name="System Bold Italic" size="20.0" />
                            </font>
                         </Label>
-                        <CheckBox fx:id="chkDiavola" mnemonicParsing="false" text="Diavola" GridPane.rowIndex="3" />
-                        <CheckBox fx:id="chkProsciuttoCotto" mnemonicParsing="false" text="Prosciutto Cotto" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <CheckBox fx:id="chkWustrler" mnemonicParsing="false" text="Wustrler" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <CheckBox fx:id="chkTuaMamma" mnemonicParsing="false" text="TuaMamma" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                        <Label text="Cerca Ingrediente" GridPane.rowIndex="6" />
-                        <TableView fx:id="tabCercaIngrediente" prefHeight="67.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
+                        <CheckBox fx:id="chkDiavola" mnemonicParsing="false" text="Diavola" GridPane.rowIndex="5" />
+                        <CheckBox fx:id="chkProsciuttoCotto" mnemonicParsing="false" text="Prosciutto Cotto" wrapText="true" GridPane.rowIndex="6" />
+                        <CheckBox fx:id="chkWustrler" mnemonicParsing="false" text="Wustrler" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <CheckBox fx:id="chkTuaMamma" mnemonicParsing="false" text="Ananas" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <Label text="Cerca Ingrediente" GridPane.rowIndex="8" />
+                        <TableView fx:id="tabCercaIngrediente" prefHeight="67.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8" GridPane.rowSpan="2">
                           <columns>
                             <TableColumn fx:id="colIngredienteSelezione" prefWidth="127.0" text="Nome Ingrediente" />
                             <TableColumn fx:id="colCostoSelezione" prefWidth="66.0" text="Costo" />
                           </columns>
                         </TableView>
+<<<<<<< HEAD
                         <TextField fx:id="txtCercaIngrediente" promptText="Ingrediente" GridPane.rowIndex="7" />
                         <TreeTableView fx:id="tabRiepilogo1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="5" GridPane.rowSpan="3">
                           <columns>
@@ -197,6 +187,35 @@
                             <TreeTableColumn fx:id="colPrezzo1" prefWidth="107.0" text="Prezzo" />
                           </columns>
                         </TreeTableView>
+=======
+                        <TextField fx:id="txtCercaIngrediente" promptText="Ingrediente" GridPane.rowIndex="9" />
+                        <Label prefHeight="30.0" prefWidth="83.0" text="Bibite" textFill="#0f00ae" GridPane.columnIndex="6" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="(+0.50 cent)" textFill="#0f00ae" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnAggiungi" mnemonicParsing="false" onAction="#btnAggiungiPizzaAction" text="Aggiungi" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Button>
+                        <Label text="Prezzo Pizza" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                        <Label fx:id="PrezzoModifica" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+                        <RadioButton fx:id="rdoAcqua" mnemonicParsing="false" text="Acqua" GridPane.columnIndex="6" GridPane.rowIndex="4">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="Bibite" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="rdoCocaCola" mnemonicParsing="false" text="CocaCola" toggleGroup="$Bibite" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                        <RadioButton fx:id="rdoFanta" mnemonicParsing="false" text="Fanta" toggleGroup="$Bibite" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                        <RadioButton fx:id="rdoBirra1" mnemonicParsing="false" text="Birra 0.33" toggleGroup="$Bibite" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+                        <RadioButton fx:id="rdoBirra2" mnemonicParsing="false" text="Birra 0.5" toggleGroup="$Bibite" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+>>>>>>> branch 'master' of https://github.com/EBignardi/GestionalePizzeria.git
                      </children>
                   </GridPane>
                </children>
@@ -204,4 +223,24 @@
         </items>
       </SplitPane>
    </center>
+   <top>
+      <GridPane prefHeight="67.0" prefWidth="1469.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnBackToCliente" mnemonicParsing="false" onAction="#BackToCliente" prefHeight="107.0" prefWidth="239.0" text="Ritorna a finestra cliente" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+            <Label prefHeight="68.0" prefWidth="240.0" text="Seleziona Pizza" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </top>
 </BorderPane>
