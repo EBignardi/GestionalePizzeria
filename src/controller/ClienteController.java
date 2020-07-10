@@ -6,11 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
 import org.apache.commons.lang3.StringUtils;
-
 import dataAccessObject.ClienteDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,9 +68,9 @@ public class ClienteController implements Initializable {
 	@FXML // fx:id="btnSelezionePizze"
 	private Button btnSelezionePizze; // Value injected by FXMLLoader
 
-	@FXML // fx:id="btnSelezioneBevande"
-	private Button btnSelezioneBevande; // Value injected by FXMLLoader
-
+	@FXML // fx:id="ClienteBackHome"
+	private Button ClienteBackHome; // Value injected by FXMLLoader
+	
 	//formatter utilizzati per DATA e ORARIO
 	DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	DateTimeFormatter formatoOra = DateTimeFormatter.ofPattern("HH:mm");
@@ -153,16 +150,22 @@ public class ClienteController implements Initializable {
 		}
 
 	}
-
+	
 	public Scene start() throws Exception {
 		Parent par = FXMLLoader.load(getClass().getResource("/view/Cliente.fxml"));
-		
 		//settaggio fullScreen
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 		Scene clienteScene = new Scene(par, screenBounds.getWidth(), screenBounds.getHeight());
 
 		return clienteScene;
 	}
+	
+	 @FXML
+	    void BackHome(ActionEvent event) throws Exception {
+	    	System.out.println("Ritorno a finestra home");
+	    	WindowsManager.start();
+	    }
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -178,7 +181,7 @@ public class ClienteController implements Initializable {
 		assert txtCivicoCliente != null : "fx:id=\"txtCivicoCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert dataCliente != null : "fx:id=\"dataCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert btnSelezionePizze != null : "fx:id=\"btnSelezionePizze\" was not injected: check your FXML file 'Cliente.fxml'.";
-		assert btnSelezioneBevande != null : "fx:id=\"btnSelezioneBevande\" was not injected: check your FXML file 'Cliente.fxml'.";
+		
 		
 		//inizializzo i valori della ComboBox orario
 		orarioCliente.getItems().addAll(LocalTime.now(),

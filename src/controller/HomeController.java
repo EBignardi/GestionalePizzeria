@@ -8,14 +8,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import manager.WindowsManager;
 
 public class HomeController implements Initializable{
+	
+	static String username = "pizzapazza";
+	static String pass = "1234";
 	
     @FXML // fx:id="homePane"
     private BorderPane homePane; // Value injected by FXMLLoader
@@ -38,9 +44,21 @@ public class HomeController implements Initializable{
     @FXML // fx:id="btnCliente"
     private Button btnCliente; // Value injected by FXMLLoader
     
+    @FXML // fx:id="SuggerimentoUsername"
+    private Label SuggerimentoUsername; // Value injected by FXMLLoader
+
+    @FXML // fx:id="SuggerimentoPassword"
+    private Label SuggerimentoPassword; // Value injected by FXMLLoader
+
+    @FXML // fx:id="Suggerimento"
+    private Label Suggerimento; // Value injected by FXMLLoader
+    
     public Scene start() throws Exception {
     	Parent par = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
-    	Scene homeScene = new Scene(par);
+    
+    	//settaggio fullScreen
+		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		Scene homeScene = new Scene(par, screenBounds.getWidth(), screenBounds.getHeight());
     	return homeScene;
     }
     
@@ -52,8 +70,16 @@ public class HomeController implements Initializable{
 
     @FXML
     void buttonTitolareAction(ActionEvent event) throws Exception {
+    	
     	System.out.println("Verifico Credenziali Titolare");
+    	if((txtUsername.getText().equals(username)) && txtPassword.getText().equals(pass)) {
 		WindowsManager.setTitolare();
+    	}
+    	else {
+    	Suggerimento.setText("Prova con : ");
+    	SuggerimentoUsername.setText(username);
+    	SuggerimentoPassword.setText(pass);
+    	}
     }
     
 
