@@ -1,10 +1,10 @@
 package manager;
 
-import controller.HomeController;
 import controller.ClienteController;
-import javafx.stage.Stage;
+import controller.HomeController;
 import controller.PizzaController;
 import controller.TitolareController;
+import javafx.stage.Stage;
 
 public class WindowsManager {
 	private static Stage root = new Stage();

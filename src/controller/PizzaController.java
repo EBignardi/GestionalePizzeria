@@ -1,9 +1,10 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.Scanner;
+
 import dataAccessObject.IngredienteDAO;
 import dataAccessObject.PizzaDAO;
-
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.StringProperty;
@@ -22,16 +23,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Screen;
 import manager.WindowsManager;
 import model.Ingrediente;
 import model.Pizza;
-import java.util.Scanner;
 
 public class PizzaController {
 	

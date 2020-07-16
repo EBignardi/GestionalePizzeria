@@ -6,8 +6,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+
 import javax.swing.JOptionPane;
+
 import org.apache.commons.lang3.StringUtils;
+
 import dataAccessObject.ClienteDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

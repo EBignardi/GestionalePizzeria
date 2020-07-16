@@ -2,6 +2,7 @@ package dataAccessObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import dbUtil.DBUtil;
 
 public class ClienteDAO {
