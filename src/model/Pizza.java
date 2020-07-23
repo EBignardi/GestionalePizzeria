@@ -7,32 +7,20 @@ import javafx.beans.property.StringProperty;
 
 public class Pizza {
 	private StringProperty nomePizza;
-	private FloatProperty prezzo;
-	private StringProperty ingredienti;
-	private String bibita;
+	private FloatProperty prezzoPizza;
 
-	
 	
 	public Pizza() {
 		this.nomePizza = new SimpleStringProperty();
-		this.prezzo = new SimpleFloatProperty();
-		this.ingredienti = new SimpleStringProperty();
+		this.prezzoPizza = new SimpleFloatProperty();
 	}
 	
-	public Pizza(StringProperty nomePizza, FloatProperty prezzo, StringProperty ingredienti) {
+	public Pizza(StringProperty nomePizza, FloatProperty prezzoPizza) {
 		this.nomePizza = nomePizza;
-		this.prezzo = prezzo;
-		this.ingredienti = ingredienti;
-	}
-	
-	public Pizza(StringProperty nomePizza, FloatProperty prezzo, StringProperty ingredienti, String bibita2) {
-		this.nomePizza = nomePizza;
-		this.prezzo = prezzo;
-		this.ingredienti = ingredienti;
-		this.bibita =bibita2;
+		this.prezzoPizza = prezzoPizza;
 	}
 
-	// metodi Nome Pizza
+	// metodi sul nome pizza
 	public StringProperty getNomePizzaProperty() {
 		return nomePizza;
 	}
@@ -45,39 +33,16 @@ public class Pizza {
 		return this.nomePizza.get();
 	}
 
-	// metodi Prezzo Pizza
+	// metodi sul prezzo pizza
 	public FloatProperty getPrezzoProperty() {
-		return prezzo;
+		return prezzoPizza;
 	}
 
 	public void setPrezzo(float prezzo) {
-		this.prezzo.set(prezzo);
+		this.prezzoPizza.set(prezzo);
 	}
 	
 	public float getPrezzo() {
-		return this.prezzo.get();
+		return this.prezzoPizza.get();
 	}
-
-	// metodi Ingredienti Pizza
-	public StringProperty getIngredientiProperty() {
-		return ingredienti;
-	}
-	
-	public void setIngredienti(String ingredienti) {
-		this.ingredienti.set(ingredienti);
-	}
-	
-	public String getIngredienti() {
-		return this.ingredienti.get();
-	}
-	
-	public String getBibita() {
-		return bibita;
-	}
-	
-	public void setBibita(String bibita) {
-		this.bibita = bibita;
-	}
-
-	
 }

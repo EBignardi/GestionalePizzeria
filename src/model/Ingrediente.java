@@ -7,11 +7,11 @@ import javafx.beans.property.StringProperty;
 
 public class Ingrediente {
 	private StringProperty nomeIngrediente;
-	private FloatProperty costo;
+	private FloatProperty sovraprezzo;
 	
 	public Ingrediente() {
 		this.nomeIngrediente = new SimpleStringProperty();
-		this.costo = new SimpleFloatProperty();
+		this.sovraprezzo = new SimpleFloatProperty();
 	}
 
 	public StringProperty getNomeIngredienteProperty() {
@@ -27,14 +27,14 @@ public class Ingrediente {
 	}
 
 	public FloatProperty getCostoProperty() {
-		return costo;
+		return sovraprezzo;
 	}
 	
 	public float getCosto() {
-		return this.costo.get();
+		return this.sovraprezzo.get();
 	}
 
 	public void setCosto(Float costo) {
-		this.costo.set(costo);
+		this.sovraprezzo.set(costo);
 	}
 }

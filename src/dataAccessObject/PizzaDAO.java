@@ -83,7 +83,6 @@ public class PizzaDAO {
 				Pizza pizza = new Pizza();
 				pizza.setNomePizza(rsSet.getString("nomePizza"));
 				pizza.setPrezzo(rsSet.getFloat("prezzo"));
-				pizza.setIngredienti(rsSet.getString("ingredienti"));
 				pizzaList.add(pizza);
 			}
 			

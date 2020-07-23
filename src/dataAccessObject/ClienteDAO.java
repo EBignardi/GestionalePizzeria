@@ -2,13 +2,12 @@ package dataAccessObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import dbUtil.DBUtil;
 
 public class ClienteDAO {
-	public static void insertCliente(String nomeCliente, String telefono, String indirizzo, String civico, String data, String orario)throws SQLException, ClassNotFoundException {
-		String sql = "insert into Cliente(nome, indirizzo, civico, telefono, data, orario) "
-				+ "values ('"+ nomeCliente +"','"+ indirizzo +"','"+ civico +"','"+ telefono +"','"+ data +"','"+ orario +"')";
+	public static void insertCliente(String nomeCliente, String telefono, String indirizzo, String civico)throws SQLException, ClassNotFoundException {
+		String sql = "insert into Cliente(nome, indirizzo, civico, telefono) "
+				+ "values ('"+ nomeCliente +"','"+ indirizzo +"','"+ civico +"','"+ telefono +"')";
 		try {
 			DBUtil.dbExcecuteQuery(sql);
 		}

@@ -2,7 +2,6 @@ package dataAccessObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import dbUtil.DBUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

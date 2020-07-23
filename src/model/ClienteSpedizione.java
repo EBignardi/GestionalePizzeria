@@ -20,8 +20,6 @@ public class ClienteSpedizione extends ClienteAsporto {
 		this.setElencoPizze(new ArrayList<Pizza>());
 		this.numTavolo.set(0);
 		this.nomeCliente = new SimpleStringProperty();
-		this.orario = new LocalTime();
-		this.data = new LocalDate();
 		this.indirizzo = new SimpleStringProperty();
 		this.numeroCivico = new SimpleIntegerProperty();
 		this.numeroTelefono = new SimpleIntegerProperty();

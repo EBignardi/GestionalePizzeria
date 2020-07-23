@@ -164,14 +164,6 @@
                         <CheckBox fx:id="chkProsciuttoCotto" mnemonicParsing="false" text="Prosciutto Cotto" wrapText="true" GridPane.rowIndex="6" />
                         <CheckBox fx:id="chkWustrler" mnemonicParsing="false" text="Wustrler" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                         <CheckBox fx:id="chkTuaMamma" mnemonicParsing="false" text="Ananas" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                        <Label text="Cerca Ingrediente" GridPane.rowIndex="8" />
-                        <TableView fx:id="tabCercaIngrediente" prefHeight="67.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8" GridPane.rowSpan="2">
-                          <columns>
-                            <TableColumn fx:id="colIngredienteSelezione" prefWidth="127.0" text="Nome Ingrediente" />
-                            <TableColumn fx:id="colCostoSelezione" prefWidth="66.0" text="Costo" />
-                          </columns>
-                        </TableView>
-                        <TextField fx:id="txtCercaIngrediente" promptText="Ingrediente" GridPane.rowIndex="9" />
                         <Label prefHeight="30.0" prefWidth="83.0" text="Bibite" textFill="#0f00ae" GridPane.columnIndex="6" GridPane.rowIndex="3">
                            <font>
                               <Font name="System Bold Italic" size="20.0" />
