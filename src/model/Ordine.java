@@ -1,46 +1,46 @@
 package model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 
 
 public class Ordine {
-	protected LocalTime orario;
-	protected LocalDate data;
+	protected java.sql.Time orario;
+	protected java.sql.Date data;
 	private FloatProperty prezzoTotale;
 	
 	
 	public Ordine() {
-		this.orario = LocalTime.now()  ;
-		this.data = LocalDate.now();
+		java.util.Date today = new java.util.Date();
+		long millis=System.currentTimeMillis();
+		this.orario = new java.sql.Time(today.getTime());
+		this.data = new java.sql.Date(millis);
 		this.prezzoTotale = new SimpleFloatProperty();
 	}
 	
 
-	public Ordine(LocalTime orario, LocalDate data) {
+	public Ordine(java.sql.Time orario, java.sql.Date data) {
 		this.setOrario(orario);
 		this.setDate(data);
 		
 	}
 	
 	// metodi orario ordine
-	public LocalDate getOrario() {
-		return LocalDate.now();
+	public java.sql.Time getOrario() {
+		return orario;
 	}
 
-	public void setOrario(LocalTime localTime) {
-		this.orario = localTime;
+	public void setOrario(java.sql.Time Time) {
+		this.orario = Time;
 	}
 	
 	
 	// metodi data ordine
-	public LocalDate getData() {
+	public java.sql.Date getData() {
 		return data;		
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(java.sql.Date date) {
 			this.data = date;
 	}
 	

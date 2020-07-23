@@ -1,10 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,7 +12,6 @@ public class ClienteSpedizione extends ClienteAsporto {
 	
 	//allocazione classe cliente Spedizione senza input
 	public ClienteSpedizione() {
-		this.setElencoPizze(new ArrayList<Pizza>());
 		this.numTavolo.set(0);
 		this.nomeCliente = new SimpleStringProperty();
 		this.indirizzo = new SimpleStringProperty();
@@ -25,9 +19,8 @@ public class ClienteSpedizione extends ClienteAsporto {
 		this.numeroTelefono = new SimpleIntegerProperty();
 	}
 
-	public ClienteSpedizione(ArrayList<Pizza> elencoPizze, IntegerProperty numTavolo, StringProperty nomeCliente,
-			LocalTime orario, LocalDate data) {
-		super(elencoPizze, numTavolo, nomeCliente, orario, data);
+	public ClienteSpedizione( IntegerProperty numTavolo, StringProperty nomeCliente) {
+		super( numTavolo, nomeCliente);
 		this.setIndirizzo(indirizzo);
 		this.setNumeroCivico(numeroCivico);
 		this.setNumeroTelefono(numeroTelefono);

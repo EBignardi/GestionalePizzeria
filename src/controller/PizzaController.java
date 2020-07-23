@@ -1,12 +1,9 @@
 package controller;
 
 import java.sql.SQLException;
-import java.util.Scanner;
-
 import dataAccessObject.IngredienteDAO;
 import dataAccessObject.PizzaDAO;
 import javafx.beans.property.FloatProperty;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -172,11 +169,7 @@ public class PizzaController {
 			System.out.println("Nome Pizza selezionata = " + nomePizzaSelezionata.get());
 			System.out.println("Prezzo Pizza selezionata = " + prezzoPizzaSelezionata.get());
 		
-		
-		
-			
-		
-			Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), prezzoMod, pizzaSelezionata.getIngredientiProperty(),bibita);
+			Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), prezzoMod);
 			
 			if(rdoAcqua.isSelected()) {
 				System.out.println("Bibita selezionata = Acqua");
@@ -206,7 +199,7 @@ public class PizzaController {
 			
 			System.out.println("Bibita selezionata = " +bibita);
 			
-			pizzaSelected.setBibita(bibita);
+			
 			
 			tabOrdine.getItems().add(pizzaSelected);
 		}
@@ -258,7 +251,7 @@ public class PizzaController {
 		//inizializzazione delle colonne della tabella riepilogo ordine
 		colPizza.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
 		colPrezzo.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
-		colBibita.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue().getBibita()));
+		
 		
 		//inizializzazione delle colonne della tabella di selezione della pizza
 		colPizzaSelezione.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
@@ -325,18 +318,18 @@ public class PizzaController {
 		    	
 		    	//Qui devo selezionare i rdoButton in base alla pizza selezionata
 		    	//creo un metodo per selezionare gli ingredienti in base al nome della pizza
-		    	Pizza pizzaSelezionata = tabCercaPizza.getSelectionModel().getSelectedItem();
-		    	Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), pizzaSelezionata.getPrezzoProperty(), 
-		    			pizzaSelezionata.getIngredientiProperty());
-		    	String ingredienti = pizzaSelected.getIngredienti();
-		    	clearChkRdo();
+		    //	Pizza pizzaSelezionata = tabCercaPizza.getSelectionModel().getSelectedItem();
+		  //  	Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), pizzaSelezionata.getPrezzoProperty(), 
+		   // 			pizzaSelezionata.getIngredientiProperty());
+		    //	String ingredienti = pizzaSelected.getIngredienti();
+		   // 	clearChkRdo();
 		    	//ingredienti = stringa che contiene gli ingredienti, separati da un '/'
-		    	System.out.println(ingredienti);
-		    	prezzoMod =pizzaSelezionata.getPrezzoProperty();
+		   // 	System.out.println(ingredienti);
+		   // 	prezzoMod =pizzaSelezionata.getPrezzoProperty();
 		    	//ricavo i singoli ingredienti
-		    	Scanner s = new Scanner(ingredienti);
-		    	s.useDelimiter("/");
-		    	
+		  //  	Scanner s = new Scanner(ingredienti);
+		//    	s.useDelimiter("/");
+		  /*  	
 		    	//per ogni ingrediente contenuto nella stringa letta si provvede a Settare i vari Radio e Check Button
 		    	 while(s.hasNext()){
 		    		 String ingrediente = s.next();

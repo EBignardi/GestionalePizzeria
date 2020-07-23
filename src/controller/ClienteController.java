@@ -125,11 +125,11 @@ public class ClienteController implements Initializable {
 
 		if (orarioCliente.getValue() != null) {
 			//Nella data odierna non posso prendere ordini con una data inferiore a quella attuale
-			if (((dataCliente.getValue()).isEqual(LocalDate.now())) && (orarioCliente.getValue().isBefore(LocalTime.now()))) {
+		/*	if (((dataCliente.getValue()).isEqual(LocalDate.now())) && (orarioCliente.getValue().isBefore(LocalTime.now()))) {
 				flag = 1;
 				System.out.println("Orario inserito NON valido");
 				JOptionPane.showMessageDialog(null, "Errore inserimento ORARIO");			
-			}
+			}*/
 		} else {
 			System.out.println("Orario NON inserito, setto quello corrente");
 			orarioCliente.setValue(LocalTime.now());
@@ -146,8 +146,8 @@ public class ClienteController implements Initializable {
 
 			//inserisco i dati nel DataBase nella Tabella Cliente
 			ClienteDAO.insertCliente(txtNomeCliente.getText(), txtTelefonoCliente.getText(), txtIndirizzoCliente.getText(),  
-					txtCivicoCliente.getText(), dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra));
-
+					txtCivicoCliente.getText());
+//dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra)
 			System.out.println("APERTURA Finestra Scelta delle Pizze");
 			WindowsManager.setPizza();
 		}

@@ -1,10 +1,7 @@
 package model;
 
-import java.util.ArrayList;
-
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -15,15 +12,13 @@ public class ClienteAsporto extends Cliente {
 	
 	//allocazione classe cliente Asporto senza input
 	public ClienteAsporto() {
-		this.setElencoPizze(new ArrayList<Pizza>());
 		this.numTavolo.set(0);
 		this.nomeCliente = new SimpleStringProperty();
 	}
 	
-	public ClienteAsporto( ArrayList<Pizza> elencoPizze, IntegerProperty numTavolo, StringProperty nomeCliente,
-			LocalTime orario, LocalDate data) {
+	public ClienteAsporto(IntegerProperty numTavolo, StringProperty nomeCliente) {
 		//settare numTavolo=0 perché non mangia in un tavolo
-		super(elencoPizze, numTavolo);
+		super(numTavolo);
 		this.setNomeCliente(nomeCliente);
 	}
 

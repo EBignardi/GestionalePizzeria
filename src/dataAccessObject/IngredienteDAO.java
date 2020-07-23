@@ -24,7 +24,7 @@ public class IngredienteDAO {
 	}
 	
 	public static ObservableList<Ingrediente> getAllRecordsAggiorna(String txt) throws SQLException, ClassNotFoundException{
-		String sql ="select * from Ingredienti where nomeIngrediente LIKE"+"'%"+ txt +"%';" ;
+		String sql ="select * from Ingredienti where nome_ingrediente LIKE"+"'%"+ txt +"%';" ;
 		try {
 			ResultSet rsSet =  DBUtil.dbExecute(sql);
 			ObservableList<Ingrediente> IngredienteList =  getIngredienteObject(rsSet);
@@ -43,7 +43,7 @@ public class IngredienteDAO {
 			ObservableList<Ingrediente> ingredienteList = FXCollections.observableArrayList();
 			while(rsSet.next()) {
 				Ingrediente ingrediente = new Ingrediente();
-				ingrediente.setNomeIngrediente(rsSet.getString("nomeIngrediente"));
+				ingrediente.setNomeIngrediente(rsSet.getString("nome_ingrediente"));
 				ingrediente.setCosto(rsSet.getFloat("sovrapprezzo"));
 				ingredienteList.add(ingrediente);
 			}

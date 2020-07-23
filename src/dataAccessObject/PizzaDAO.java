@@ -10,8 +10,8 @@ import model.Pizza;
 
 
 public class PizzaDAO {
-	public static void insertPizza(String nomePizza, double prezzo, String ingredienti)throws SQLException, ClassNotFoundException {
-		String sql = "insert into pizza(nomePizza, prezzo, ingredienti) values ('"+nomePizza+"','"+ prezzo +"','"+ ingredienti +"')";
+	public static void insertPizza(String nome_pizza, double prezzo, String ingredienti)throws SQLException, ClassNotFoundException {
+		String sql = "insert into pizza(nome_pizza, prezzo) values ('"+nome_pizza+"','"+ prezzo +"')";
 		try {
 			DBUtil.dbExcecuteQuery(sql);
 		}
@@ -23,7 +23,7 @@ public class PizzaDAO {
 	}
 	
 	public static void updatePizza(String nomePizza, String idPizza) throws SQLException, ClassNotFoundException{
-		String sql ="update Pizza set nomePizza = '"+ nomePizza +"' where idPizza = '"+ idPizza +"' ";
+		String sql ="update Pizza set nome_pizza = '"+ nomePizza +"' where id_pizza = '"+ idPizza +"' ";
 		try {
 			DBUtil.dbExcecuteQuery(sql);
 
@@ -35,7 +35,7 @@ public class PizzaDAO {
 	}
 	
 	public static void deletePizzaById(int idPizza) throws SQLException, ClassNotFoundException{
-		String sql ="delete from Pizza where id = '"+ idPizza +"'";
+		String sql ="delete from Pizza where id_pizza = '"+ idPizza +"'";
 		try {
 			DBUtil.dbExcecuteQuery(sql);
 
@@ -62,7 +62,7 @@ public class PizzaDAO {
 	}
 	
 	public static ObservableList<Pizza> getAllRecordsAggiorna(String txt) throws SQLException, ClassNotFoundException{
-		String sql ="select * from Pizza where nomePizza LIKE"+"'%"+ txt +"%';" ;
+		String sql ="select * from Pizza where nome_pizza LIKE"+"'%"+ txt +"%';" ;
 		try {
 			ResultSet rsSet =  DBUtil.dbExecute(sql);
 			ObservableList<Pizza> pizzaList =  getPizzaObject(rsSet);
@@ -81,7 +81,7 @@ public class PizzaDAO {
 			ObservableList<Pizza> pizzaList = FXCollections.observableArrayList();
 			while(rsSet.next()) {
 				Pizza pizza = new Pizza();
-				pizza.setNomePizza(rsSet.getString("nomePizza"));
+				pizza.setNomePizza(rsSet.getString("nome_pizza"));
 				pizza.setPrezzo(rsSet.getFloat("prezzo"));
 				pizzaList.add(pizza);
 			}
@@ -95,7 +95,7 @@ public class PizzaDAO {
 	}
 	
 	public static ObservableList<Pizza> searchPizza(String nomePizza) throws SQLException,ClassNotFoundException{
-		String sql = "select * from Pizza where nomePizza = " + nomePizza;
+		String sql = "select * from Pizza where nome_pizza = " + nomePizza;
 		try {
 			ResultSet rsSet = DBUtil.dbExecute(sql);
 			ObservableList<Pizza> pizzaListSearch =  getPizzaObject(rsSet);

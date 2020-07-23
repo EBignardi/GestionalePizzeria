@@ -2,16 +2,11 @@ package dataAccessObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import dbUtil.DBUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Ordine;
-import java.time.LocalDate;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.Date;
-import java.time.LocalTime;
+
 
 public class OrdiniDAO {
 
@@ -47,12 +42,9 @@ public class OrdiniDAO {
 			ObservableList<Ordine> ordineList = FXCollections.observableArrayList();
 			while(rsSet.next()) {
 				Ordine ordine = new Ordine();
-				Date date = rsSet.getDate("data");
-				ZoneId defaultZoneId = ZoneId.systemDefault();
-				Instant  instant = date.toInstant();
-				
-				ordine.setDate(instant.atZone(defaultZoneId).toLocalDate());
-				ordine.setOrario.toLocalTime(rsSet.getTime("ora"));
+				ordine.setDate(rsSet.getDate("data"));
+				ordine.setOrario(rsSet.getTime("orario"));
+				ordine.setPrezzo(rsSet.getFloat("prezzo_totale"));
 				ordineList.add(ordine);
 			}
 			

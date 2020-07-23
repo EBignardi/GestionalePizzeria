@@ -24,7 +24,7 @@ public class Bibita {
 		return nomeBibita;
 	}
 	
-	public void setNomeBibibta(String nomeBibita) {
+	public void setNomeBibita(String nomeBibita) {
 		this.nomeBibita.set(nomeBibita);
 	}
 	
