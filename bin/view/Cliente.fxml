@@ -98,9 +98,14 @@
                         <TextField fx:id="txtIndirizzoCliente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="txtCivicoCliente" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                         <DatePicker fx:id="dataCliente" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                        <Button fx:id="btnSelezionePizze" mnemonicParsing="false" onAction="#buttonPizzeAction" text="Scegli Pizze" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                        <Button fx:id="btnOrdinaPizze" mnemonicParsing="false" onAction="#buttonOrdinaPizzeAction" text="Ordina" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                            <font>
                               <Font name="System Bold" size="35.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnSelezionePizze" mnemonicParsing="false" onAction="#btnPizzeAction" text="Pizze" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
                            </font>
                         </Button>
                      </children>

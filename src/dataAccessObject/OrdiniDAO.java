@@ -10,8 +10,8 @@ import model.Ordine;
 
 public class OrdiniDAO {
 
-	public static void insertOrdine(String data, String Orario, int prezzo_totale)throws SQLException, ClassNotFoundException {
-		String sql = "insert into Ordine(data, orario, prezzo_totale) values ('"+data+"','"+ Orario +"','" + prezzo_totale+"')";
+	public static void insertOrdine(String data, String Orario, float prezzo_totale,String nome_cliente)throws SQLException, ClassNotFoundException {
+		String sql = "insert into Ordine(data, orario,prezzo_totale,nome_cliente) values ('"+data+"','"+ Orario +"','"+ prezzo_totale +"','" + nome_cliente+"')";
 		try {
 			DBUtil.dbExcecuteQuery(sql);
 		}
@@ -44,7 +44,7 @@ public class OrdiniDAO {
 				Ordine ordine = new Ordine();
 				ordine.setDate(rsSet.getDate("data"));
 				ordine.setOrario(rsSet.getTime("orario"));
-				ordine.setPrezzo(rsSet.getFloat("prezzo_totale"));
+				ordine.setPrezzoTotale(rsSet.getFloat("prezzo_totale"));
 				ordineList.add(ordine);
 			}
 			

@@ -46,6 +46,9 @@ public class PizzaController {
     @FXML // fx:id="colPizza"
     private TableColumn<Pizza, String> colPizza; // Value injected by FXMLLoader
 
+    @FXML // fx:id="colIngredienti"
+    private TableColumn<Pizza, String> colIngredienti; // Value injected by FXMLLoader
+    
     @FXML // fx:id="colBibita"
     private TableColumn<Pizza, String> colBibita; // Value injected by FXMLLoader
 
@@ -157,7 +160,7 @@ public class PizzaController {
      */
 	@FXML
 	void btnAggiungiPizzaAction(ActionEvent event) throws ClassNotFoundException, SQLException {
-		//System.out.println("Bibita = " + bibita.getValue());
+	//	System.out.println("Bibita = " + bibita.getValue());
 		System.out.println("Aggiunta Pizza");
 		Pizza pizzaSelezionata = tabCercaPizza.getSelectionModel().getSelectedItem();
 		if (pizzaSelezionata == null) {
@@ -271,6 +274,7 @@ public class PizzaController {
 		 * Metodo che ad ogni cambiamento del testo inserito nella textBox CercaPizza
 		 * cerca nel mio DataBase le pizze che corrispondono ai caratteri inseriti
 		 */
+		/*
 		txtCercaPizza.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue){
@@ -285,13 +289,13 @@ public class PizzaController {
 				}
 			}
 		});
-		
+		*/
 		
 		/**
 		 * Metodo che ad ogni cambiamento del testo inserito nella textBox CercaIngrediente
 		 * cerca nel mio DataBase gli ingredienti che corrispondono ai caratteri inseriti
 		 */
-		txtCercaIngrediente.textProperty().addListener(new ChangeListener<String>() {
+		/*txtCercaIngrediente.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue){
 				// this will run whenever text is changed
@@ -306,7 +310,7 @@ public class PizzaController {
 			}
 		});
 		
-		
+		*/
 		/*
 		 * Metodo che cambia il Form di selezione degli ingredienti in base agli ingredienti letti nel DataBase
 		 * in base al nome della pizza che viene selezionata dalla Tabella di selezione
@@ -376,7 +380,7 @@ public class PizzaController {
 		    	 
 		    	 
 		    	//Aggiunta sovraprezzo per ingredienti aggiuntivi
-		    	 
+		    	/* 
 		    	 EventHandler<ActionEvent> eh = new EventHandler<ActionEvent>() {
 		    		    @Override
 		    		    public void handle(ActionEvent event) {
@@ -408,11 +412,11 @@ public class PizzaController {
 		    		chkWustrler.setOnAction(eh);
 		    		
 		    		
-
+*/
 		    		
 		  		
 		    		//Aggiunta sovraprezzo per l'impasto doppio
-		    		
+		    		/*
 		    		 EventHandler<ActionEvent> dp = new EventHandler<ActionEvent>() {
 			    		    @Override
 			    		    public void handle(ActionEvent event) {
@@ -437,7 +441,7 @@ public class PizzaController {
 			    		};
 
 			    		chkDoppio.setOnAction(dp);
-		    		
+		    	*/	
 		    }
 		    
 		    else {
@@ -465,9 +469,15 @@ public class PizzaController {
 	 * Popola la tabella selezione ingredienti con tutti gli ingredienti presenti nel Database
 	 * @param ingredientiList
 	 */
+	
+	/*
+	
 	private void populateTableIngredienti(ObservableList<Ingrediente> ingredienteList) {
 		tabCercaIngrediente.setItems(ingredienteList);
 	}
+	*/
+	
+	
 	
 	public Scene start() throws Exception {
 		Parent par = FXMLLoader.load(getClass().getResource("/view/Pizza.fxml"));
@@ -478,5 +488,7 @@ public class PizzaController {
 		
 		return pizzaScene;
 	}
+	
+	
 }
 

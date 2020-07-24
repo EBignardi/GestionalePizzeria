@@ -6,12 +6,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
 import org.apache.commons.lang3.StringUtils;
-
 import dataAccessObject.ClienteDAO;
+import dataAccessObject.OrdiniDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +25,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import manager.WindowsManager;
-import model.ClienteSpedizione;
+import model.Cliente;
+import model.Ordine;
 import model.Pizza;
 
 public class ClienteController implements Initializable {
@@ -39,16 +38,16 @@ public class ClienteController implements Initializable {
 	private URL location;
 
 	@FXML // fx:id="tabOrdini"
-	private TableView<ClienteSpedizione> tabOrdini; // Value injected by FXMLLoader
+	private TableView<Ordine> tabOrdini; // Value injected by FXMLLoader
 
 	@FXML // fx:id="colonnaOrario"
-	private TableColumn<ClienteSpedizione, LocalTime> colOrario; // Value injected by FXMLLoader
+	private TableColumn<Ordine, LocalTime> colOrario; // Value injected by FXMLLoader
 
 	@FXML // fx:id="colonnaIndirizzo"
-	private TableColumn<ClienteSpedizione, String> colIndirizzo; // Value injected by FXMLLoader
+	private TableColumn<Cliente, String> colIndirizzo; // Value injected by FXMLLoader
 
 	@FXML // fx:id="colonnaPizze"
-	private TableColumn<ClienteSpedizione, Pizza> colPizze; // Value injected by FXMLLoader
+	private TableColumn<Cliente, Pizza> colPizze; // Value injected by FXMLLoader
 
 	@FXML // fx:id="orarioCliente"
 	private ComboBox<LocalTime> orarioCliente; // Value injected by FXMLLoader
@@ -68,18 +67,23 @@ public class ClienteController implements Initializable {
 	@FXML // fx:id="dataCliente"
 	private DatePicker dataCliente; // Value injected by FXMLLoader
 
-	@FXML // fx:id="btnSelezionePizze"
-	private Button btnSelezionePizze; // Value injected by FXMLLoader
+	@FXML // fx:id="btnOrdinaPizze"
+	private Button btnOrdinaPizze; // Value injected by FXMLLoader
 
 	@FXML // fx:id="ClienteBackHome"
 	private Button ClienteBackHome; // Value injected by FXMLLoader
 	
+	@FXML // fx:id="btnScegliPizze"
+	private Button btnSelezionePizze; // Value injected by FXMLLoader
+	
 	//formatter utilizzati per DATA e ORARIO
 	DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	DateTimeFormatter formatoOra = DateTimeFormatter.ofPattern("HH:mm");
+	
+	
 
 	@FXML
-	void buttonPizzeAction(ActionEvent event) throws Exception {
+	void buttonOrdinaPizzeAction(ActionEvent event) throws Exception {
 		//variabile che controlla se tutti i dati inseriti soono giusti
 		int flag = 0;
 
@@ -125,11 +129,11 @@ public class ClienteController implements Initializable {
 
 		if (orarioCliente.getValue() != null) {
 			//Nella data odierna non posso prendere ordini con una data inferiore a quella attuale
-		/*	if (((dataCliente.getValue()).isEqual(LocalDate.now())) && (orarioCliente.getValue().isBefore(LocalTime.now()))) {
+			if (((dataCliente.getValue()).isEqual(LocalDate.now())) && (orarioCliente.getValue().isBefore(LocalTime.now()))) {
 				flag = 1;
 				System.out.println("Orario inserito NON valido");
 				JOptionPane.showMessageDialog(null, "Errore inserimento ORARIO");			
-			}*/
+			}
 		} else {
 			System.out.println("Orario NON inserito, setto quello corrente");
 			orarioCliente.setValue(LocalTime.now());
@@ -144,15 +148,25 @@ public class ClienteController implements Initializable {
 					"Data Ordine: " + dataCliente.getValue().format(formatoData) + "\n" + 
 					"Orario Ordine: " + orarioCliente.getValue().format(formatoOra));
 
-			//inserisco i dati nel DataBase nella Tabella Cliente
+			//inserisco i dati nel DataBase nella Tabella Cliente e nella tabella Ordine
 			ClienteDAO.insertCliente(txtNomeCliente.getText(), txtTelefonoCliente.getText(), txtIndirizzoCliente.getText(),  
 					txtCivicoCliente.getText());
-//dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra)
+			
+			OrdiniDAO.insertOrdine(dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra),0,txtNomeCliente.getText());
+			
+			//dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra)
+		}
+	}
+	
+	
+	
+	@FXML
+	void btnPizzeAction(ActionEvent event) throws Exception {
 			System.out.println("APERTURA Finestra Scelta delle Pizze");
 			WindowsManager.setPizza();
-		}
-
+		
 	}
+	
 	
 	public Scene start() throws Exception {
 		Parent par = FXMLLoader.load(getClass().getResource("/view/Cliente.fxml"));
@@ -183,7 +197,9 @@ public class ClienteController implements Initializable {
 		assert txtIndirizzoCliente != null : "fx:id=\"txtIndirizzoCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert txtCivicoCliente != null : "fx:id=\"txtCivicoCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert dataCliente != null : "fx:id=\"dataCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
-		assert btnSelezionePizze != null : "fx:id=\"btnSelezionePizze\" was not injected: check your FXML file 'Cliente.fxml'.";
+		assert btnOrdinaPizze != null : "fx:id=\"btnSelezionePizze\" was not injected: check your FXML file 'Cliente.fxml'.";
+		assert ClienteBackHome != null : "fx:id=\"ClienteBackHome\" was not injected: check your FXML file 'Cliente.fxml'.";
+		assert btnSelezionePizze != null : "fx:id=\"ClientePizze\" was not injected: check your FXML file 'Cliente.fxml'.";
 		
 		
 		//inizializzo i valori della ComboBox orario
