@@ -11,7 +11,7 @@ import model.Pizza;
 
 public class PizzaDAO {
 	public static void insertPizza(String nome_pizza, double prezzo, String ingredienti)throws SQLException, ClassNotFoundException {
-		String sql = "insert into pizza(nome_pizza, prezzo) values ('"+nome_pizza+"','"+ prezzo +"')";
+		String sql = "insert into pizza(nome_pizza, prezzo,ingredienti) values ('"+nome_pizza+"','"+ prezzo +"','"+ ingredienti +"')";
 		try {
 			DBUtil.dbExcecuteQuery(sql);
 		}
@@ -83,6 +83,7 @@ public class PizzaDAO {
 				Pizza pizza = new Pizza();
 				pizza.setNomePizza(rsSet.getString("nome_pizza"));
 				pizza.setPrezzo(rsSet.getFloat("prezzo"));
+				pizza.setIngredientiPizza(rsSet.getString("ingredienti"));
 				pizzaList.add(pizza);
 			}
 			
@@ -110,7 +111,7 @@ public class PizzaDAO {
 	}
 	
 	public static ObservableList<Pizza> searchIngredientiPizza(String nomePizza) throws SQLException,ClassNotFoundException{
-		String sql = "select ingredienti from Pizza where nomePizza = " + nomePizza;
+		String sql = "select ingredienti from Pizza where nome_pizza = " + nomePizza;
 		try {
 			ResultSet rsSet = DBUtil.dbExecute(sql);
 			ObservableList<Pizza> pizzaIngredientiSearch =  getPizzaObject(rsSet);

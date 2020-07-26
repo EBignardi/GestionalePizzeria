@@ -1,9 +1,12 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.Scanner;
 import dataAccessObject.IngredienteDAO;
 import dataAccessObject.PizzaDAO;
 import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,15 +28,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Screen;
 import manager.WindowsManager;
-import model.Ingrediente;
 import model.Pizza;
 
 public class PizzaController {
-	
-	static FloatProperty prezzoMod;
-    
-	static String bibita;
-	
     @FXML // fx:id="txtCercaPizza"
     private TextField txtCercaPizza; // Value injected by FXMLLoader
 
@@ -58,14 +55,8 @@ public class PizzaController {
     @FXML // fx:id="rdoIntegrale"
     private RadioButton rdoIntegrale; // Value injected by FXMLLoader
 
-    @FXML // fx:id="colPrezzoSelezione"
-    private TableColumn<Pizza, Float> colPrezzoSelezione; // Value injected by FXMLLoader
-
     @FXML // fx:id="tabCercaPizza"
     private TableView<Pizza> tabCercaPizza; // Value injected by FXMLLoader
-
-    @FXML // fx:id="rdoPomodoroSì"
-    private RadioButton rdoPomodoroSì; // Value injected by FXMLLoader
 
     @FXML // fx:id="tabOrdine"
     private TableView<Pizza> tabOrdine; // Value injected by FXMLLoader
@@ -73,33 +64,29 @@ public class PizzaController {
     @FXML // fx:id="chkDoppio"
     private CheckBox chkDoppio; // Value injected by FXMLLoader
 
-    @FXML // fx:id="GroupPomodoro"
-    private ToggleGroup GroupPomodoro; // Value injected by FXMLLoader
-
     @FXML // fx:id="btnAggiungi"
     private Button btnAggiungi; // Value injected by FXMLLoader
 
     @FXML // fx:id="rdoKamut"
     private RadioButton rdoKamut; // Value injected by FXMLLoader
-
-    @FXML // fx:id="colPizzaSelezione"
-    private TableColumn<Pizza, String> colPizzaSelezione; // Value injected by FXMLLoader
-
-    @FXML // fx:id="rdoMozzarellaSì"
-    private RadioButton rdoMozzarellaSì; // Value injected by FXMLLoader
-
-    @FXML // fx:id="rdoPomodoroNo"
-    private RadioButton rdoPomodoroNo; // Value injected by FXMLLoader
-
+   
     @FXML // fx:id="rdoNormale"
     private RadioButton rdoNormale; // Value injected by FXMLLoader
 
-    @FXML // fx:id="GroupMozzarella"
-    private ToggleGroup GroupMozzarella; // Value injected by FXMLLoader
-
-    @FXML // fx:id="rdoMozzarellaNo"
-    private RadioButton rdoMozzarellaNo; // Value injected by FXMLLoader
+    @FXML // fx:id="chkMozzarella"
+    private CheckBox chkMozzarella; // Value injected by FXMLLoader
    
+    @FXML // fx:id="chkPomodoro"
+    private CheckBox chkPomodoro; // Value injected by FXMLLoader
+      
+    @FXML // fx:id="colPizzaSelezione"
+    private TableColumn<Pizza, String> colPizzaSelezione; // Value injected by FXMLLoader
+
+    @FXML // fx:id="colIngredientiSelezione"
+    private TableColumn<Pizza, String> colIngredientiSelezione; // Value injected by FXMLLoader
+   
+    @FXML // fx:id="colPrezzoSelezione"
+    private TableColumn<Pizza, Float> colPrezzoSelezione; // Value injected by FXMLLoader
     @FXML
     private CheckBox chkProsciuttoCotto;
     
@@ -115,6 +102,9 @@ public class PizzaController {
     @FXML
     private Label PrezzoModifica;
     
+    @FXML // fx:id="prezzoTotale"
+    private Label prezzoTotale;
+    
     @FXML // fx:id="rdoAcqua"
     private RadioButton rdoAcqua; // Value injected by FXMLLoader
     
@@ -129,16 +119,7 @@ public class PizzaController {
     
     @FXML // fx:id="rdoBirra2"
     private RadioButton rdoBirra2; // Value injected by FXMLLoader
-    
-    @FXML // fx:id="txtCercaIngrediente"
-    private TextField txtCercaIngrediente; // Value injected by FXMLLoader
-    
-    @FXML // fx:id="tabCercaIngrediente"
-    private TableView<Ingrediente> tabCercaIngrediente; // Value injected by FXMLLoader
-    
-    @FXML // fx:id="colIngredienteSelezione"
-    private TableColumn<Ingrediente, String> colIngredienteSelezione; // Value injected by FXMLLoader
-    
+      
     @FXML // fx:id="colCostoSelezione"
     private TableColumn<Pizza, Float> colCostoSelezione; // Value injected by FXMLLoader
     
@@ -148,8 +129,12 @@ public class PizzaController {
     @FXML // fx:id="btnCliente"
     private Button btnBackToCliente ; // Value injected by FXMLLoader
     
+    FloatProperty prezzoMod= new SimpleFloatProperty();
     
-    
+    StringProperty bibita=new SimpleStringProperty();
+	
+	float sovraprezzo=0;
+	
     
     /**
      * Action di Bottone Aggiungi Pizza:
@@ -160,61 +145,61 @@ public class PizzaController {
      */
 	@FXML
 	void btnAggiungiPizzaAction(ActionEvent event) throws ClassNotFoundException, SQLException {
-	//	System.out.println("Bibita = " + bibita.getValue());
 		System.out.println("Aggiunta Pizza");
 		Pizza pizzaSelezionata = tabCercaPizza.getSelectionModel().getSelectedItem();
 		if (pizzaSelezionata == null) {
 			System.out.println("Nessuna Pizza selezionata");
 		} else {
-			
 			StringProperty nomePizzaSelezionata = pizzaSelezionata.getNomePizzaProperty();
 			FloatProperty prezzoPizzaSelezionata = pizzaSelezionata.getPrezzoProperty();
+			StringProperty ingredientiPizzaSelezionata = pizzaSelezionata.getIngredientiPizzaProperty();
+			
 			System.out.println("Nome Pizza selezionata = " + nomePizzaSelezionata.get());
 			System.out.println("Prezzo Pizza selezionata = " + prezzoPizzaSelezionata.get());
-		
-			Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), prezzoMod);
+			System.out.println("Ingredienti Pizza selezionata = " + ingredientiPizzaSelezionata.get());
+			
 			
 			if(rdoAcqua.isSelected()) {
 				System.out.println("Bibita selezionata = Acqua");
-				bibita="Acqua";
-				
+				bibita.setValue("Acqua");
 			}
-
 		
 			if(rdoCocaCola.isSelected()) {
+				bibita.setValue(rdoCocaCola.getText());
 				System.out.println("Bibita selezionata = CocaCola");
-				bibita=rdoCocaCola.getText();
 			}
 			
 			if(rdoFanta.isSelected()) {
 				System.out.println("Bibita selezionata = Fanta");
-				bibita=rdoFanta.getText();
+				bibita.setValue(rdoFanta.getText());
 			}
+			
 			if(rdoBirra1.isSelected()) {
 				System.out.println("Bibita selezionata = Fanta");
-				bibita=rdoBirra1.getText();
+				bibita.setValue(rdoBirra1.getText());
 			}
 			
 			if(rdoBirra2.isSelected()) {
 				System.out.println("Bibita selezionata = Fanta");
-				bibita=rdoBirra2.getText();
+				bibita.setValue(rdoBirra2.getText());
 			}
 			
-			System.out.println("Bibita selezionata = " +bibita);
+			System.out.println("Bibita selezionata = " +bibita.toString());
 			
-			
-			
+			Pizza pizzaSelected = new Pizza(nomePizzaSelezionata,prezzoMod,ingredientiPizzaSelezionata,bibita );
 			tabOrdine.getItems().add(pizzaSelected);
+			
 		}
 	}
+	
+	
 	
 	/**
 	 * Resetta tutti i RadioButton e CheckButton Default
 	 */
-	
 	public void clearChkRdo() { 
-		rdoPomodoroNo.setSelected(true);
-		rdoMozzarellaNo.setSelected(true);
+		chkPomodoro.setSelected(false);
+		chkMozzarella.setSelected(false);
 		rdoCocaCola.setSelected(true);
 		chkProsciuttoCotto.setSelected(false);
 		chkWustrler.setSelected(false);
@@ -246,35 +231,27 @@ public class PizzaController {
 		assert rdoNormale != null : "fx:id=\"rdoNormale\" was not injected: check your FXML file 'Pizza.fxml'.";
 		assert rdoIntegrale != null : "fx:id=\"rdoIntegrale\" was not injected: check your FXML file 'Pizza.fxml'.";
 		assert rdoKamut != null : "fx:id=\"rdoKamut\" was not injected: check your FXML file 'Pizza.fxml'.";
-		assert rdoMozzarellaSì != null : "fx:id=\"rdoMozzarellaSì\" was not injected: check your FXML file 'Pizza.fxml'.";
-		assert rdoMozzarellaNo != null : "fx:id=\"rdoMozzarellaNo\" was not injected: check your FXML file 'Pizza.fxml'.";
-		assert rdoPomodoroSì != null : "fx:id=\"rdoPomodoroSì\" was not injected: check your FXML file 'Pizza.fxml'.";
-		assert rdoPomodoroNo != null : "fx:id=\"rdoPomodoroNo\" was not injected: check your FXML file 'Pizza.fxml'.";
+		assert chkMozzarella != null : "fx:id=\"chkMozzarella\" was not injected: check your FXML file 'Pizza.fxml'.";
+		assert chkPomodoro != null : "fx:id=\"chkPomodoro\" was not injected: check your FXML file 'Pizza.fxml'.";
+	
 		
 		//inizializzazione delle colonne della tabella riepilogo ordine
 		colPizza.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
 		colPrezzo.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
-		
+		colIngredienti.setCellValueFactory(cellData -> cellData.getValue().getIngredientiPizzaProperty());
+		colBibita.setCellValueFactory(cellData -> cellData.getValue().getBibitaProperty());
 		
 		//inizializzazione delle colonne della tabella di selezione della pizza
 		colPizzaSelezione.setCellValueFactory(cellData -> cellData.getValue().getNomePizzaProperty());
 		colPrezzoSelezione.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
+		colIngredientiSelezione.setCellValueFactory(cellData -> cellData.getValue().getIngredientiPizzaProperty());
 		ObservableList<Pizza> pizzaList = PizzaDAO.getAllRecords();
 		populateTable(pizzaList);
-		
-	/*
-		//inizializzazione delle colonne della tabella di selezione degli ingredienti
-		colIngredienteSelezione.setCellValueFactory(cellData -> cellData.getValue().getNomeIngredienteProperty());
-		colCostoSelezione.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
-		ObservableList<Ingrediente> ingredienteList = IngredienteDAO.getAllRecords();
-		populateTableIngredienti(ingredienteList);
-	*/	
 		
 		/**
 		 * Metodo che ad ogni cambiamento del testo inserito nella textBox CercaPizza
 		 * cerca nel mio DataBase le pizze che corrispondono ai caratteri inseriti
 		 */
-		/*
 		txtCercaPizza.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue){
@@ -289,7 +266,7 @@ public class PizzaController {
 				}
 			}
 		});
-		*/
+		
 		
 		/**
 		 * Metodo che ad ogni cambiamento del testo inserito nella textBox CercaIngrediente
@@ -322,33 +299,36 @@ public class PizzaController {
 		    	
 		    	//Qui devo selezionare i rdoButton in base alla pizza selezionata
 		    	//creo un metodo per selezionare gli ingredienti in base al nome della pizza
-		    //	Pizza pizzaSelezionata = tabCercaPizza.getSelectionModel().getSelectedItem();
-		  //  	Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), pizzaSelezionata.getPrezzoProperty(), 
-		   // 			pizzaSelezionata.getIngredientiProperty());
-		    //	String ingredienti = pizzaSelected.getIngredienti();
-		   // 	clearChkRdo();
+		 
+		    	Pizza pizzaSelezionata = tabCercaPizza.getSelectionModel().getSelectedItem();
+		    	Pizza pizzaSelected = new Pizza(pizzaSelezionata.getNomePizzaProperty(), pizzaSelezionata.getPrezzoProperty(),pizzaSelezionata.getIngredientiPizzaProperty());
+		    	String ingredienti = pizzaSelected.getIngredienti();
+		    	prezzoMod=pizzaSelected.getPrezzoProperty();
+		    	clearChkRdo();
+		    
 		    	//ingredienti = stringa che contiene gli ingredienti, separati da un '/'
-		   // 	System.out.println(ingredienti);
-		   // 	prezzoMod =pizzaSelezionata.getPrezzoProperty();
+		    	System.out.println("Ingredienti Pizza" + pizzaSelezionata.getNomePizzaProperty());
+		    	System.out.println(ingredienti);
+		    	
 		    	//ricavo i singoli ingredienti
-		  //  	Scanner s = new Scanner(ingredienti);
-		//    	s.useDelimiter("/");
-		  /*  	
+		    	Scanner s = new Scanner(ingredienti);
+		    	s.useDelimiter("/");
+		  	
 		    	//per ogni ingrediente contenuto nella stringa letta si provvede a Settare i vari Radio e Check Button
 		    	 while(s.hasNext()){
 		    		 String ingrediente = s.next();
 		    		 
-		    		 if (ingrediente.equals("Mozzarella")) rdoMozzarellaSì.setSelected(true);
+		    		 if (ingrediente.equals("Mozzarella")) chkMozzarella.setSelected(true);
 		    		 
-		    		 if (ingrediente.equals("Pomodoro")) rdoPomodoroSì.setSelected(true);
+		    		 if (ingrediente.equals("Pomodoro")) chkPomodoro.setSelected(true);
 		    		 
 		    		 if (ingrediente.equals("Diavola")) chkDiavola.setSelected(true);
 		    		 
-		    		 if (ingrediente.equals("TuaMamma")) chkTuaMamma.setSelected(true);
+		    		 if (ingrediente.equals("Prosciutto Crudo")) chkTuaMamma.setSelected(true);
 		    		
-		    		 if (ingrediente.equals("Wustrler")) chkWustrler.setSelected(true);
+		    		 if (ingrediente.equals("Wurstel")) chkWustrler.setSelected(true);
 		    		 
-		    		 if (ingrediente.equals("ProsciuttoCotto")) chkProsciuttoCotto.setSelected(true);
+		    		 if (ingrediente.equals("Prosciutto Cotto")) chkProsciuttoCotto.setSelected(true);
 		    		 
 		    		 System.out.println(ingrediente);
 		    	 }   
@@ -356,7 +336,7 @@ public class PizzaController {
 		    	 //chiusura dello Scanner
 		    	
 		    	 s.close();
-		    	 
+		      
 		    	 
 		    	 System.out.println("Prezzo pizza selezionata PRIMA cambiamento: " + prezzoMod.toString());
 		    	 PrezzoModifica.setText(String.valueOf(prezzoMod.get()));
@@ -366,37 +346,66 @@ public class PizzaController {
 		    	  * AGGIUNGO se ne seleziono di nuove
 		    	  * TOLGO se tolgo la selezione di qualcuna
 		    	  */
-		    	 /*
+		    	 
 		    	 chkDiavola.selectedProperty().addListener(new ChangeListener<Boolean>() {
 		    		    @Override
 		    		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 		    		    	if (!oldValue)
-		    		    		System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + pizzaSelected.getPrezzoProperty().add(0.5).get());
+		    		    		System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + prezzoMod);
 		    		    	else 
-		    		    		System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + pizzaSelected.getPrezzoProperty().add(-0.5).get());
+		    		    		System.out.println("Prezzo Pizza selezionata DOPO cambiamento: "+prezzoMod );
 		    		    }
 		    	 });
-		    	 */
 		    	 
 		    	 
 		    	//Aggiunta sovraprezzo per ingredienti aggiuntivi
-		    	/* 
+		    	
 		    	 EventHandler<ActionEvent> eh = new EventHandler<ActionEvent>() {
 		    		    @Override
 		    		    public void handle(ActionEvent event) {
 		    		        if (event.getSource() instanceof CheckBox) {
 		    		            CheckBox chk = (CheckBox) event.getSource();
 		    		            System.out.println("Action performed on checkbox " + chk.getText());
+		    		            
+		    		     
+		    		            // In sovraprezzo ho il costo di ogni ingrediente aggiuntivo
+		    		            try {
+		    		            	 System.out.println("Nome dell'ingrediente " +chk.getText());
+									 sovraprezzo =IngredienteDAO.getPrezzoIngrediente(chk.getText());
+		    		            	 System.out.println(chk.getText()+"  - Il prezzo dell'ingrediente e' " +sovraprezzo);
+
+								} catch (ClassNotFoundException | SQLException e) {
+		    		            	 System.out.println("Errore nel trovare il prezzo dell'ingrediente");
+									e.printStackTrace();
+								}
+		    		          
+		    		           //Se il bottone viene selezionato si aggiunge il prezzo
+		    		            
 		    		            if (chk.isSelected()) {
 		    		            	 ;
-		    		            	 System.out.println("Prezzo ModificaPizza selezionata PRIMA cambiamento: " + prezzoMod.get());
-		    		            	 prezzoMod.set(prezzoMod.get()+ (float)0.5);
-		    		            	 System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + prezzoMod.get());
+		    		            	 System.out.println("Prezzo Pizza PRIMA cambiamento: " + prezzoMod.get());
+		    		            	 System.out.println("INGREDIENTI PRIMA cambiamento: " + pizzaSelected.getIngredienti());
+		    		            	 prezzoMod.set(prezzoMod.get()+ sovraprezzo);
+		    		            	 System.out.println("Prezzo Pizza DOPO cambiamento: " + prezzoMod.get());
 		    		            	 PrezzoModifica.setText(String.valueOf(prezzoMod.get()));
+		    		            	 pizzaSelected.addIngrediente( chk.getText());
+		    		            	 System.out.println("ingredienti dopo della modifica: " + pizzaSelected.getIngredienti());
+		    		            	
+		    		  
 		    		            } else{
 		    		            	
-		    		            	 System.out.println("Prezzo ModificaPizza selezionata PRIMA cambiamento: " + prezzoMod.get());
-		    		            	 prezzoMod.set(prezzoMod.get()- (float)0.5);
+		    		            	 System.out.println("Prezzo Pizza selezionata PRIMA cambiamento: " + prezzoMod.get());
+		    		            	 prezzoMod.set(prezzoMod.get()- sovraprezzo);
+		    		            	 
+		    		            	 System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + pizzaSelected.getPrezzo());
+		    		            	 
+		    		            	System.out.println("INGREDIENTI PRIMA cambiamento: " + pizzaSelected.getIngredienti());
+		    		            	 pizzaSelected.removeIngrediente( chk.getText());
+		    		            	 
+		    		            	  
+		    		            //	 pizzaSelected.setIngredientiPizza(ing);
+		    		            	 System.out.println("ingredienti dopo della modifica: " + pizzaSelected.getIngredienti());
+		    		            	 
 		    		            	// PrezzoModifica.setText("" + model.Pizza.getPrezzoModifica());
 		    		            	 System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + prezzoMod.get());
 		    		            
@@ -410,13 +419,14 @@ public class PizzaController {
 		    		chkProsciuttoCotto.setOnAction(eh);
 		    		chkTuaMamma.setOnAction(eh);
 		    		chkWustrler.setOnAction(eh);
+		    		chkMozzarella.setOnAction(eh);
+		    		chkPomodoro.setOnAction(eh);
 		    		
-		    		
-*/
+
 		    		
 		  		
 		    		//Aggiunta sovraprezzo per l'impasto doppio
-		    		/*
+		    		
 		    		 EventHandler<ActionEvent> dp = new EventHandler<ActionEvent>() {
 			    		    @Override
 			    		    public void handle(ActionEvent event) {
@@ -428,8 +438,8 @@ public class PizzaController {
 			    		            	 System.out.println("Prezzo ModificaPizza selezionata PRIMA cambiamento: " + prezzoMod.get());
 			    		            	 prezzoMod.set(prezzoMod.get()+ (float)1);
 			    		            	 System.out.println("Prezzo Pizza selezionata DOPO cambiamento: " + prezzoMod.get());
-			    		            	
 			    		            	 PrezzoModifica.setText(String.valueOf(prezzoMod.get()));
+			    		            	 
 			    		            } else{
 			    		            	 System.out.println("Prezzo ModificaPizza selezionata PRIMA cambiamento: " + prezzoMod.get());
 			    		            	 prezzoMod.set(prezzoMod.get()- (float)1);
@@ -441,7 +451,7 @@ public class PizzaController {
 			    		};
 
 			    		chkDoppio.setOnAction(dp);
-		    	*/	
+		    	
 		    }
 		    
 		    else {

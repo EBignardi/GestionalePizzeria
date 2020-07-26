@@ -23,7 +23,7 @@ public class IngredienteDAO {
 		}
 	}
 	
-	public static ObservableList<Ingrediente> getAllRecordsAggiorna(String txt) throws SQLException, ClassNotFoundException{
+	public static ObservableList<Ingrediente> getIngrediente(String txt) throws SQLException, ClassNotFoundException{
 		String sql ="select * from Ingredienti where nome_ingrediente LIKE"+"'%"+ txt +"%';" ;
 		try {
 			ResultSet rsSet =  DBUtil.dbExecute(sql);
@@ -37,6 +37,30 @@ public class IngredienteDAO {
 		}
 	}
 
+
+	public static float getPrezzoIngrediente(String txt) throws SQLException, ClassNotFoundException {
+		String sql ="select prezzo from Ingredienti where nome_ingrediente LIKE"+"'%"+ txt +"%';";
+		try {
+			DBUtil.dbExcecuteQuery(sql);
+			ResultSet rsSet = DBUtil.dbExecute(sql);
+			
+			float prezzo =0;
+			
+			while(rsSet.next()) {
+					prezzo = (rsSet.getFloat("prezzo"));
+				}
+			
+			return prezzo ;
+		}
+		catch(SQLException e) {
+			System.out.println("Exception occur while inserting the data " + e);
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	
 	
 	private static ObservableList<Ingrediente> getIngredienteObject(ResultSet rsSet) throws SQLException,ClassNotFoundException {
 		try {
@@ -44,7 +68,7 @@ public class IngredienteDAO {
 			while(rsSet.next()) {
 				Ingrediente ingrediente = new Ingrediente();
 				ingrediente.setNomeIngrediente(rsSet.getString("nome_ingrediente"));
-				ingrediente.setCosto(rsSet.getFloat("sovrapprezzo"));
+				ingrediente.setCosto(rsSet.getFloat("sovraprezzo"));
 				ingredienteList.add(ingrediente);
 			}
 			

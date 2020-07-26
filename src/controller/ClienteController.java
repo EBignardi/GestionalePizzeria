@@ -85,7 +85,11 @@ public class ClienteController implements Initializable {
 	@FXML
 	void buttonOrdinaPizzeAction(ActionEvent event) throws Exception {
 		//variabile che controlla se tutti i dati inseriti soono giusti
+		
 		int flag = 0;
+		
+		System.out.println();
+		
 
 		System.out.println("Controllo dei dati inseriti riguardanti il Cliente");
 
