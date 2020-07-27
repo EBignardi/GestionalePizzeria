@@ -2,6 +2,9 @@ package dataAccessObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import dbUtil.DBUtil;
 
 public class ClienteDAO {
@@ -18,8 +21,11 @@ public class ClienteDAO {
 		}
 	}
 	
+	/**
+	 * Query che estrapola il NUMERO di ordini mensili
+	 * */	
 	public static int[] ordiniPerMese() throws SQLException, ClassNotFoundException {
-		String sql = "SELECT count(*) as ordini_mensili FROM Cliente GROUP BY strftime('%m',data); ";
+		String sql = "SELECT count(*) as ordini_mensili FROM Ordine GROUP BY strftime('%m',data); ";
 		try {
 			DBUtil.dbExcecuteQuery(sql);
 			ResultSet rsSet = DBUtil.dbExecute(sql);
@@ -42,111 +48,78 @@ public class ClienteDAO {
 
 	}
 	
-	
-	
-	//Da implementare nel caso servissero
 	/**
-	public static void updateCliente(String nomeCliente, String idCliente) throws SQLException, ClassNotFoundException{
-		String sql ="update Cliente set nomeCliente = '"+ nomeCliente +"' where idCliente = '"+ idCliente +"' ";
+	 * Query che estrapola il FATTURATO mensile
+	 * */	
+	public static float[] fatturatoPerMese() throws SQLException, ClassNotFoundException {
+		String sql = "SELECT sum(prezzo_totale) as fatturato_mensile FROM Ordine GROUP BY strftime('%m',data); ";
 		try {
 			DBUtil.dbExcecuteQuery(sql);
-
-		}catch(SQLException e){
-			System.out.println("Error occured while updating the record "+e);
-			e.printStackTrace();
-			throw e;
-		}
-	}
-	
-	public static void deleteClienteById(int idCliente) throws SQLException, ClassNotFoundException{
-		String sql ="delete from Cliente where id = '"+ idCliente +"'";
-		try {
-			DBUtil.dbExcecuteQuery(sql);
-
-		}catch(SQLException e){
-			System.out.println("Error occured while deleting the record "+e);
-			e.printStackTrace();
-			throw e;
-		}
-	}
-
-	//REFRESH ALL
-	public static ObservableList<Cliente> getAllRecords() throws SQLException, ClassNotFoundException{
-		String sql ="select * from Cliente";
-		try {
-			ResultSet rsSet =  DBUtil.dbExecute(sql);
-			ObservableList<Cliente> ClienteList =  getClienteObject(rsSet);
-			return ClienteList;
-
-		}catch(SQLException e){
-			System.out.println("Error occured while get all the record "+e);
-			e.printStackTrace();
-			throw e;
-		}
-	}
-	
-	public static ObservableList<Cliente> getAllRecordsAggiorna(String txt) throws SQLException, ClassNotFoundException{
-		String sql ="select * from Cliente where nomeCliente LIKE"+"'%"+ txt +"%';" ;
-		try {
-			ResultSet rsSet =  DBUtil.dbExecute(sql);
-			ObservableList<Cliente> ClienteList =  getClienteObject(rsSet);
-			return ClienteList;
-
-		}catch(SQLException e){
-			System.out.println("Error occured while get all the record updated "+e);
-			e.printStackTrace();
-			throw e;
-		}
-	}
-
-	
-	private static ObservableList<Cliente> getClienteObject(ResultSet rsSet) throws SQLException,ClassNotFoundException {
-		try {
-			ObservableList<Cliente> ClienteList = FXCollections.observableArrayList();
-			while(rsSet.next()) {
-				Cliente Cliente = new Cliente();
-				Cliente.setNomeCliente(rsSet.getString("nomeCliente"));
-				Cliente.setPrezzo(rsSet.getFloat("prezzo"));
-				Cliente.setIngredienti(rsSet.getString("ingredienti"));
-				ClienteList.add(Cliente);
-			}
+			ResultSet rsSet = DBUtil.dbExecute(sql);
 			
-			return ClienteList;
-		}catch(SQLException e) {
-			System.out.println("Error occured while fetching the data from DB "+e);
-			e.printStackTrace();
-			throw e;
-		}
-	}
-	
-	public static ObservableList<Cliente> searchCliente(String nomeCliente) throws SQLException,ClassNotFoundException{
-		String sql = "select * from Cliente where nomeCliente = " + nomeCliente;
-		try {
-			ResultSet rsSet = DBUtil.dbExecute(sql);
-			ObservableList<Cliente> ClienteListSearch =  getClienteObject(rsSet);
-			System.out.println("Pizze ritornate " + ClienteListSearch);
-			return ClienteListSearch;
+			float[] fatturatoMese = new float[12];
+			int i = 0;
+			
+			while(rsSet.next()) {
+					fatturatoMese[i] = (rsSet.getFloat("fatturato_mensile"));
+					i++;
+				}
+			
+			return fatturatoMese ;
 		}
 		catch(SQLException e) {
-			System.out.println("Error occured while searching Cliente " + e);
+			System.out.println("Exception occur while inserting the data " + e);
 			e.printStackTrace();
 			throw e;
 		}
+
 	}
 	
-	public static ObservableList<Cliente> searchIngredientiCliente(String nomeCliente) throws SQLException,ClassNotFoundException{
-		String sql = "select ingredienti from Cliente where nomeCliente = " + nomeCliente;
+	/**
+	 * Query che estrapola i primi 3 clienti per soldi spesi
+	 * */	
+	public static List<String> topClienti() throws SQLException, ClassNotFoundException {
+		String sql = "SELECT nome_cliente, sum(prezzo_totale) as soldi_spesi FROM Ordine GROUP BY nome_cliente ORDER BY soldi_spesi DESC LIMIT 3; ";
 		try {
+			DBUtil.dbExcecuteQuery(sql);
 			ResultSet rsSet = DBUtil.dbExecute(sql);
-			ObservableList<Cliente> ClienteIngredientiSearch =  getClienteObject(rsSet);
-			System.out.println("Ingredienti ritornati " + ClienteIngredientiSearch);
-			return ClienteIngredientiSearch;
+			
+			List<String> topClienti = new ArrayList<String>();
+
+			while(rsSet.next()) {
+					topClienti.add(rsSet.getString("nome_cliente"));
+				}
+			return topClienti ;
 		}
 		catch(SQLException e) {
-			System.out.println("Error occured while searching Ingredienti Cliente " + e);
+			System.out.println("Exception occur while inserting the data " + e);
 			e.printStackTrace();
 			throw e;
 		}
+
 	}
-	**/
+	
+	/**
+	 * Query che estrapola le prime 3 pizze 
+	 * */	
+	public static List<String> topPizze() throws SQLException, ClassNotFoundException {
+		String sql = "SELECT nome_pizza, sum(quantita) as numero_pizze FROM OrdinePizza GROUP BY nome_pizza ORDER BY numero_pizze DESC LIMIT 3; ";
+		try {
+			DBUtil.dbExcecuteQuery(sql);
+			ResultSet rsSet = DBUtil.dbExecute(sql);
+			
+			List<String> topPizze = new ArrayList<String>();
+
+			while(rsSet.next()) {
+					topPizze.add(rsSet.getString("nome_pizza"));
+				}
+			return topPizze ;
+		}
+		catch(SQLException e) {
+			System.out.println("Exception occur while inserting the data " + e);
+			e.printStackTrace();
+			throw e;
+		}
+
+	}
 }

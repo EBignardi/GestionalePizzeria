@@ -382,7 +382,6 @@ public class PizzaController {
 		    		           //Se il bottone viene selezionato si aggiunge il prezzo
 		    		            
 		    		            if (chk.isSelected()) {
-		    		            	 ;
 		    		            	 System.out.println("Prezzo Pizza PRIMA cambiamento: " + prezzoMod.get());
 		    		            	 System.out.println("INGREDIENTI PRIMA cambiamento: " + pizzaSelected.getIngredienti());
 		    		            	 prezzoMod.set(prezzoMod.get()+ sovraprezzo);
@@ -390,10 +389,7 @@ public class PizzaController {
 		    		            	 PrezzoModifica.setText(String.valueOf(prezzoMod.get()));
 		    		            	 pizzaSelected.addIngrediente( chk.getText());
 		    		            	 System.out.println("ingredienti dopo della modifica: " + pizzaSelected.getIngredienti());
-		    		            	
-		    		  
-		    		            } else{
-		    		            	
+		    		            } else {      	
 		    		            	 System.out.println("Prezzo Pizza selezionata PRIMA cambiamento: " + prezzoMod.get());
 		    		            	 prezzoMod.set(prezzoMod.get()- sovraprezzo);
 		    		            	 
