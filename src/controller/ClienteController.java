@@ -46,10 +46,10 @@ public class ClienteController {
 	private TableColumn<Ordine, String> colIndirizzo; // Value injected by FXMLLoader
 	
 	@FXML // fx:id="colData"
-	private TableColumn<Ordine, LocalDate> colData; // Value injected by FXMLLoader
+	private TableColumn<Ordine, String> colData; // Value injected by FXMLLoader
 	
 	@FXML // fx:id="colOrario"
-	private TableColumn<Ordine, LocalTime> colOrario; // Value injected by FXMLLoader
+	private TableColumn<Ordine, String> colOrario; // Value injected by FXMLLoader
 	
 	@FXML // fx:id="colTotale"
 	private TableColumn<Ordine, Float> colTotale; // Value injected by FXMLLoader
@@ -199,8 +199,8 @@ public class ClienteController {
 		//inizializzazione delle colonne della tabella riepilogo ordine	
 				colNomeCliente.setCellValueFactory(cellData -> cellData.getValue().getNomeCliente());
 				colIndirizzo.setCellValueFactory(cellData -> cellData.getValue().getIndirizzoProperty());
-				//colOrario.setCellValueFactory(cellData -> cellData.getValue().getOrarioProperty().asObject());
-				//colData.setCellValueFactory(cellData -> cellData.getValue().getDataProperty());
+				colOrario.setCellValueFactory(cellData -> cellData.getValue().getOrarioProperty());
+				colData.setCellValueFactory(cellData -> cellData.getValue().getDateProperty());
 				colTotale.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
 				populateTable(ordiniList);
 	}

@@ -56,8 +56,8 @@ public class OrdiniDAO {
 			ObservableList<Ordine> ordineList = FXCollections.observableArrayList();
 			while(rsSet.next()) {
 				Ordine ordine = new Ordine();
-     		//	ordine.setDate(rsSet.getDate("data").toString());
-			//	ordine.setOrario(rsSet.getTime("orario").toString());
+     			ordine.setDate(rsSet.getString("data"));
+				ordine.setOrario(rsSet.getString("orario"));
 				ordine.setPrezzoTotale(rsSet.getFloat("prezzo_totale"));
 				ordine.setNomeCliente(rsSet.getString("nome_cliente"));
 				ordine.setIndirizzo(rsSet.getString("indirizzo"));

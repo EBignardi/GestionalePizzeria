@@ -22,7 +22,7 @@ public class Ordine {
 	}
 	
 
-	public Ordine(String orario, String data,Float prezzoTotale,StringProperty nomeCliente,StringProperty indirizzo) {
+	public Ordine(StringProperty orario, StringProperty data, Float prezzoTotale, StringProperty nomeCliente, StringProperty indirizzo) {
 		this.setOrario(orario);
 		this.setDate(data);
 		this.setPrezzoTotale(prezzoTotale);
@@ -36,10 +36,28 @@ public class Ordine {
 		return orario;
 	}
 
+	public void setOrario(StringProperty orario) {
+		this.orario = orario;
+	}
+	
 	public void setOrario(String orario) {
 		this.orario.set(orario);
 	}
 	
+	// metodi data ordine
+	public StringProperty getDateProperty() {
+		return data;
+	}
+
+	public void setDate(StringProperty data) {
+		this.data = data;
+	}
+	
+	public void setDate(String data) {
+		this.data.set(data);
+	}
+	
+	//metodi nome cliente 
 	public StringProperty getNomeCliente() {
 		return nomeCliente;
 	}
@@ -51,16 +69,7 @@ public class Ordine {
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente.set(nomeCliente);
 	}
-	
-	// metodi data ordine
-	public StringProperty getDataProperty() {
-		return data;		
-	}
 
-	public void setDate(String date) {
-			this.data.set(date);;
-	}
-	
 	// metodi prezzo totale ordine
 	public FloatProperty getPrezzoProperty() {
 			return prezzoTotale;
@@ -74,6 +83,7 @@ public class Ordine {
 			return this.prezzoTotale.get();
 	}
 	
+	// metodi indirizzo
 	public void setIndirizzo(StringProperty indirizzo) {
 		this.indirizzo = indirizzo;
 	}
