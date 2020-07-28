@@ -29,6 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
 import manager.WindowsManager;
 import model.Pizza;
@@ -132,6 +133,9 @@ public class PizzaController {
     
     @FXML // fx:id="colBibitaSelezione"
     private TableColumn<Pizza, String> colBibitaSelezione; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="visibleGrid"
+    private GridPane visibleGrid; // Value injected by FXMLLoader
     
     @FXML // fx:id="btnCliente"
     private Button btnBackToCliente ; // Value injected by FXMLLoader 
@@ -286,6 +290,8 @@ public class PizzaController {
 		 */
 		tabOrdine.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		    if (newSelection != null) {
+		    	
+		    	visibleGrid.setVisible(true);;
 		    	System.out.println("Selezione Pizza Valida");
 		    	
 		    	//Qui devo selezionare i rdoButton in base alla pizza selezionata
@@ -471,6 +477,7 @@ public class PizzaController {
 			    		chkDoppio.setOnAction(dp);	 		    		
 		    }
 		    else {
+		    	visibleGrid.setVisible(false);
 		    	System.out.println("Selezione Pizza NON Valida");
 		    }
 		});

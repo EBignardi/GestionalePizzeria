@@ -92,7 +92,7 @@ public class ClienteController {
 		System.out.println("Controllo dei dati inseriti riguardanti il Cliente");
 
 		if (!(txtNomeCliente.getText().isEmpty())) {
-			if (!(StringUtils.isAlpha(txtNomeCliente.getText()))) {
+			if (!(StringUtils.isAlphaSpace(txtNomeCliente.getText()))) {
 				flag = 1;
 				System.out.println("Nome Cliente NON valido");
 				
@@ -199,8 +199,8 @@ public class ClienteController {
 		//inizializzazione delle colonne della tabella riepilogo ordine	
 				colNomeCliente.setCellValueFactory(cellData -> cellData.getValue().getNomeCliente());
 				colIndirizzo.setCellValueFactory(cellData -> cellData.getValue().getIndirizzoProperty());
-			//	colOrario.setCellValueFactory(new PropertyValueFactory<>("orario"));
-			//	colData.setCellValueFactory(new PropertyValueFactory<>("data"));
+				//colOrario.setCellValueFactory(cellData -> cellData.getValue().getOrarioProperty().asObject());
+				//colData.setCellValueFactory(cellData -> cellData.getValue().getDataProperty());
 				colTotale.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
 				populateTable(ordiniList);
 	}

@@ -5,28 +5,24 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-
-
 public class Ordine {
-	private java.sql.Time orario;
-	private java.sql.Date data;
+	private StringProperty orario;
+	private StringProperty data;
 	private FloatProperty prezzoTotale;
 	private StringProperty nomeCliente;
 	private StringProperty indirizzo;
 
 	
 	public Ordine() {
-		java.util.Date today = new java.util.Date();
-		long millis=System.currentTimeMillis();
-		this.orario = new java.sql.Time(today.getTime());
-		this.data = new java.sql.Date(millis);
+		this.orario = new SimpleStringProperty();
+		this.data =new SimpleStringProperty();
 		this.prezzoTotale = new SimpleFloatProperty();
 		this.nomeCliente = new SimpleStringProperty();
 		this.indirizzo=new SimpleStringProperty();
 	}
 	
 
-	public Ordine(java.sql.Time orario, java.sql.Date data,Float prezzoTotale,StringProperty nomeCliente,StringProperty indirizzo) {
+	public Ordine(String orario, String data,Float prezzoTotale,StringProperty nomeCliente,StringProperty indirizzo) {
 		this.setOrario(orario);
 		this.setDate(data);
 		this.setPrezzoTotale(prezzoTotale);
@@ -36,12 +32,12 @@ public class Ordine {
 	}
 	
 	// metodi orario ordine
-	public java.sql.Time getOrario() {
+	public StringProperty getOrarioProperty() {
 		return orario;
 	}
 
-	public void setOrario(java.sql.Time Time) {
-		this.orario = Time;
+	public void setOrario(String orario) {
+		this.orario.set(orario);
 	}
 	
 	public StringProperty getNomeCliente() {
@@ -57,12 +53,12 @@ public class Ordine {
 	}
 	
 	// metodi data ordine
-	public java.util.Date getData() {
+	public StringProperty getDataProperty() {
 		return data;		
 	}
 
-	public void setDate(java.sql.Date date) {
-			this.data = date;
+	public void setDate(String date) {
+			this.data.set(date);;
 	}
 	
 	// metodi prezzo totale ordine
@@ -89,4 +85,7 @@ public class Ordine {
 	public void setIndirizzo(String indirizzo) {
 		this.indirizzo.set(indirizzo);
 	}
+
+
+	
 }
