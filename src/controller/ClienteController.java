@@ -2,18 +2,18 @@ package controller;
 
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang3.StringUtils;
-import dataAccessObject.ClienteDAO;
 import dataAccessObject.OrdiniDAO;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,11 +25,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import manager.WindowsManager;
-import model.Cliente;
 import model.Ordine;
-import model.Pizza;
 
-public class ClienteController implements Initializable {
+
+public class ClienteController {
 
 	@FXML // ResourceBundle that was given to the FXMLLoader
 	private ResourceBundle resources;
@@ -38,28 +37,34 @@ public class ClienteController implements Initializable {
 	private URL location;
 
 	@FXML // fx:id="tabOrdini"
-	private TableView<Ordine> tabOrdini; // Value injected by FXMLLoader
+	private  TableView<Ordine> tabOrdini; // Value injected by FXMLLoader
 
-	@FXML // fx:id="colonnaOrario"
+	@FXML // fx:id="colNomeCliente"
+	private TableColumn<Ordine, String> colNomeCliente; // Value injected by FXMLLoader
+
+	@FXML // fx:id="colIndirizzo"
+	private TableColumn<Ordine, String> colIndirizzo; // Value injected by FXMLLoader
+	
+	@FXML // fx:id="colData"
+	private TableColumn<Ordine, LocalDate> colData; // Value injected by FXMLLoader
+	
+	@FXML // fx:id="colOrario"
 	private TableColumn<Ordine, LocalTime> colOrario; // Value injected by FXMLLoader
-
-	@FXML // fx:id="colonnaIndirizzo"
-	private TableColumn<Cliente, String> colIndirizzo; // Value injected by FXMLLoader
-
-	@FXML // fx:id="colonnaPizze"
-	private TableColumn<Cliente, Pizza> colPizze; // Value injected by FXMLLoader
-
+	
+	@FXML // fx:id="colTotale"
+	private TableColumn<Ordine, Float> colTotale; // Value injected by FXMLLoader
+	
 	@FXML // fx:id="orarioCliente"
-	private ComboBox<LocalTime> orarioCliente; // Value injected by FXMLLoader
+	private  ComboBox<LocalTime> orarioCliente; // Value injected by FXMLLoader
 	
 	@FXML // fx:id="txtNomeCliente"
-	private TextField txtNomeCliente; // Value injected by FXMLLoader
+	private  TextField txtNomeCliente; // Value injected by FXMLLoader
 
 	@FXML // fx:id="txtTelefonoCliente"
 	private TextField txtTelefonoCliente; // Value injected by FXMLLoader
 
 	@FXML // fx:id="txtIndirizzoCliente"
-	private TextField txtIndirizzoCliente; // Value injected by FXMLLoader
+	private  TextField txtIndirizzoCliente; // Value injected by FXMLLoader
 
 	@FXML // fx:id="txtCivicoCliente"
 	private TextField txtCivicoCliente; // Value injected by FXMLLoader
@@ -67,38 +72,35 @@ public class ClienteController implements Initializable {
 	@FXML // fx:id="dataCliente"
 	private DatePicker dataCliente; // Value injected by FXMLLoader
 
-	@FXML // fx:id="btnOrdinaPizze"
-	private Button btnOrdinaPizze; // Value injected by FXMLLoader
-
 	@FXML // fx:id="ClienteBackHome"
 	private Button ClienteBackHome; // Value injected by FXMLLoader
 	
-	@FXML // fx:id="btnScegliPizze"
+	@FXML // fx:id="btnSelezionePizze"
 	private Button btnSelezionePizze; // Value injected by FXMLLoader
 	
 	//formatter utilizzati per DATA e ORARIO
 	DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	DateTimeFormatter formatoOra = DateTimeFormatter.ofPattern("HH:mm");
+    DateTimeFormatter formatoOra = DateTimeFormatter.ofPattern("HH:mm");
 	
-	
-
+    
+	//Controlla se tutti i dati inseriti sono giusti e apre la la finestra di selezione delle pizze
 	@FXML
-	void buttonOrdinaPizzeAction(ActionEvent event) throws Exception {
+	void btnPizzeAction(ActionEvent event) throws Exception {
 		//variabile che controlla se tutti i dati inseriti soono giusti
-		
 		int flag = 0;
 		
-		System.out.println();
-		
-
 		System.out.println("Controllo dei dati inseriti riguardanti il Cliente");
 
 		if (!(txtNomeCliente.getText().isEmpty())) {
 			if (!(StringUtils.isAlpha(txtNomeCliente.getText()))) {
 				flag = 1;
 				System.out.println("Nome Cliente NON valido");
+				
 				JOptionPane.showMessageDialog(null, "Errore inserimento NOME CLIENTE");
 			}
+		}
+		else {
+			txtNomeCliente.setText("Asporto");
 		}
 
 		if (!(txtTelefonoCliente.getText().isEmpty())) {
@@ -152,56 +154,28 @@ public class ClienteController implements Initializable {
 					"Data Ordine: " + dataCliente.getValue().format(formatoData) + "\n" + 
 					"Orario Ordine: " + orarioCliente.getValue().format(formatoOra));
 
-			//inserisco i dati nel DataBase nella Tabella Cliente e nella tabella Ordine
-			ClienteDAO.insertCliente(txtNomeCliente.getText(), txtTelefonoCliente.getText(), txtIndirizzoCliente.getText(),  
-					txtCivicoCliente.getText());
 			
-			OrdiniDAO.insertOrdine(dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra),0,txtNomeCliente.getText());
+			OrdiniDAO.insertOrdine(dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra),0,txtNomeCliente.getText(),txtIndirizzoCliente.getText()+"  " + txtCivicoCliente.getText());
+			System.out.println("APERTURA Finestra Scelta delle Pizze");
+			WindowsManager.setPizza();
 			
-			//dataCliente.getValue().format(formatoData), orarioCliente.getValue().format(formatoOra)
 		}
 	}
 	
 	
-	
-	@FXML
-	void btnPizzeAction(ActionEvent event) throws Exception {
-			System.out.println("APERTURA Finestra Scelta delle Pizze");
-			WindowsManager.setPizza();
-		
-	}
-	
-	
-	public Scene start() throws Exception {
-		Parent par = FXMLLoader.load(getClass().getResource("/view/Cliente.fxml"));
-		//settaggio fullScreen
-		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-		Scene clienteScene = new Scene(par, screenBounds.getWidth(), screenBounds.getHeight());
 
-		return clienteScene;
-	}
-	
-	 @FXML
-	    void BackHome(ActionEvent event) throws Exception {
-	    	System.out.println("Ritorno a finestra home");
-	    	WindowsManager.start();
-	    }
-	
-	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+	 @FXML // This method is called by the FXMLLoader when initialization is complete
+	void initialize() throws Exception, SQLException  {
 		assert tabOrdini != null : "fx:id=\"tabOrdini\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert colOrario != null : "fx:id=\"colonnaOrario\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert colIndirizzo != null : "fx:id=\"colonnaIndirizzo\" was not injected: check your FXML file 'Cliente.fxml'.";
-		assert colPizze != null : "fx:id=\"colonnaPizze\" was not injected: check your FXML file 'Cliente.fxml'.";
+		assert colData != null : "fx:id=\"colonnaPizze\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert orarioCliente != null : "fx:id=\"orarioCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert txtNomeCliente != null : "fx:id=\"txtNomeCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert txtTelefonoCliente != null : "fx:id=\"txtTelefonoCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert txtIndirizzoCliente != null : "fx:id=\"txtIndirizzoCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert txtCivicoCliente != null : "fx:id=\"txtCivicoCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert dataCliente != null : "fx:id=\"dataCliente\" was not injected: check your FXML file 'Cliente.fxml'.";
-		assert btnOrdinaPizze != null : "fx:id=\"btnSelezionePizze\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert ClienteBackHome != null : "fx:id=\"ClienteBackHome\" was not injected: check your FXML file 'Cliente.fxml'.";
 		assert btnSelezionePizze != null : "fx:id=\"ClientePizze\" was not injected: check your FXML file 'Cliente.fxml'.";
 		
@@ -219,12 +193,43 @@ public class ClienteController implements Initializable {
 		//inizializzo la data a quella attuale per non avere problemi di data nulla
 		dataCliente.setValue(LocalDate.now());
 		
-		/**
-		//inizializzazione delle colonne della tabella riepilogo ordini
-		colOrario.setCellValueFactory(cellData -> cellData.getValue().getOrario().asObject());
-		colIndirizzo.setCellValueFactory(cellData -> cellData.getValue().getIndirizzoProperty().asObject());
-		colPizze.setCellValueFactory(cellData -> cellData.getValue().getElencoPizze());
-		**/
+		ObservableList<Ordine> ordiniList = OrdiniDAO.getAllRecords();
+		System.out.println(ordiniList.toString());
 		
+		//inizializzazione delle colonne della tabella riepilogo ordine	
+				colNomeCliente.setCellValueFactory(cellData -> cellData.getValue().getNomeCliente());
+				colIndirizzo.setCellValueFactory(cellData -> cellData.getValue().getIndirizzoProperty());
+			//	colOrario.setCellValueFactory(new PropertyValueFactory<>("orario"));
+			//	colData.setCellValueFactory(new PropertyValueFactory<>("data"));
+				colTotale.setCellValueFactory(cellData -> cellData.getValue().getPrezzoProperty().asObject());
+				populateTable(ordiniList);
 	}
+	
+	
+	 @FXML
+	 void BackHome(ActionEvent event) throws Exception {
+	    	System.out.println("Ritorno a finestra home");
+	    	WindowsManager.start();
+	 }
+	
+	 
+	/**
+	 * Popola la tabella degli ordini con tutti gli ordini presenti nel Database
+	 * @param pizzaList
+	 */	 
+	private void populateTable(ObservableList<Ordine> ordineList) {
+		tabOrdini.setItems(ordineList);
+	}
+	
+
+	public Scene start() throws Exception {
+		Parent par = FXMLLoader.load(getClass().getResource("/view/Cliente.fxml"));
+		//settaggio fullScreen
+		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		Scene clienteScene = new Scene(par, screenBounds.getWidth(), screenBounds.getHeight());
+
+		return clienteScene;
+	}
+
 }
+

@@ -6,12 +6,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 
+
 public class Ordine {
-	protected java.sql.Time orario;
-	protected java.sql.Date data;
+	private java.sql.Time orario;
+	private java.sql.Date data;
 	private FloatProperty prezzoTotale;
-	protected StringProperty nomeCliente;
-	
+	private StringProperty nomeCliente;
+	private StringProperty indirizzo;
+
 	
 	public Ordine() {
 		java.util.Date today = new java.util.Date();
@@ -20,14 +22,17 @@ public class Ordine {
 		this.data = new java.sql.Date(millis);
 		this.prezzoTotale = new SimpleFloatProperty();
 		this.nomeCliente = new SimpleStringProperty();
+		this.indirizzo=new SimpleStringProperty();
 	}
 	
 
-	public Ordine(java.sql.Time orario, java.sql.Date data,Float prezzoTotale,StringProperty nomeCliente) {
+	public Ordine(java.sql.Time orario, java.sql.Date data,Float prezzoTotale,StringProperty nomeCliente,StringProperty indirizzo) {
 		this.setOrario(orario);
 		this.setDate(data);
 		this.setPrezzoTotale(prezzoTotale);
 		this.setNomeCliente(nomeCliente);
+		this.setIndirizzo(indirizzo);
+		
 	}
 	
 	// metodi orario ordine
@@ -47,16 +52,18 @@ public class Ordine {
 		this.nomeCliente = nomeCliente;
 	}
 	
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente.set(nomeCliente);
+	}
 	
 	// metodi data ordine
-	public java.sql.Date getData() {
+	public java.util.Date getData() {
 		return data;		
 	}
 
 	public void setDate(java.sql.Date date) {
 			this.data = date;
 	}
-	
 	
 	// metodi prezzo totale ordine
 	public FloatProperty getPrezzoProperty() {
@@ -70,6 +77,16 @@ public class Ordine {
 	public float getPrezzoTotale() {
 			return this.prezzoTotale.get();
 	}
-
 	
+	public void setIndirizzo(StringProperty indirizzo) {
+		this.indirizzo = indirizzo;
+	}
+	
+	public StringProperty getIndirizzoProperty() {
+		return indirizzo;
+	}
+
+	public void setIndirizzo(String indirizzo) {
+		this.indirizzo.set(indirizzo);
+	}
 }

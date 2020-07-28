@@ -3,7 +3,6 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +19,8 @@ import manager.WindowsManager;
 
 public class HomeController implements Initializable{
 	
-	static String username = "pizzapazza";
-	static String pass = "1234";
+	private static String username = "pizzapazza";
+	private static String pass = "1234";
 	
     @FXML // fx:id="homePane"
     private BorderPane homePane; // Value injected by FXMLLoader
@@ -89,7 +88,7 @@ public class HomeController implements Initializable{
         assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'Home.fxml'.";
         assert btnTitolare != null : "fx:id=\"btnTitolare\" was not injected: check your FXML file 'Home.fxml'.";
         assert btnCliente != null : "fx:id=\"btnCliente\" was not injected: check your FXML file 'Home.fxml'.";
-		// TODO Auto-generated method stub
+		
 	}
 	
 	

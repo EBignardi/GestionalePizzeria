@@ -30,6 +30,13 @@ public class Pizza {
 		this.ingredienti = ingredienti;
 		this.bibita=bibita;
 	}
+	
+	public Pizza(String nomePizza, Float prezzoPizza,String ingredienti,String bibita) {
+		setNomePizza(nomePizza);
+		setPrezzo(prezzoPizza);
+		setIngredientiPizza(ingredienti);
+		setBibitaPizza(bibita);
+	}
 
 	// metodi sul nome pizza
 	public StringProperty getNomePizzaProperty() {
@@ -49,7 +56,7 @@ public class Pizza {
 		return bibita;
 	}
 	
-	public void setBibibaPizza(String bibita) {
+	public void setBibitaPizza(String bibita) {
 		this.bibita.set(bibita);
 	}
 	

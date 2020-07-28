@@ -76,7 +76,7 @@ public class TitolareController implements Initializable {
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		userlbl.setText("Welcome Ciani");
+		userlbl.setText("Welcome chef");
 		
 		setGraficoOrdini();
 		setGraficoVendite();

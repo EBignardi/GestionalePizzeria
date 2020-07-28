@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -31,44 +33,54 @@
       <Insets />
    </opaqueInsets>
    <center>
-      <GridPane prefHeight="624.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="624.0" prefWidth="300.0" translateX="10.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="787.0" minWidth="10.0" prefWidth="215.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="787.0" minWidth="10.0" prefWidth="135.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="300.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.0" minWidth="4.0" prefWidth="99.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="612.0" minWidth="10.0" prefWidth="592.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="1.0" prefWidth="41.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="787.0" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="150.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.0" minWidth="4.0" prefWidth="316.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="612.0" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.0" minWidth="1.0" prefWidth="200.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="393.0" minHeight="10.0" prefHeight="189.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="393.0" minHeight="0.0" prefHeight="82.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="393.0" minHeight="0.0" prefHeight="119.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="537.0" minHeight="0.0" prefHeight="193.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="606.0" minHeight="10.0" prefHeight="143.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="572.0" minHeight="6.0" prefHeight="72.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="572.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="572.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="572.0" minHeight="10.0" prefHeight="351.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="393.0" minHeight="0.0" prefHeight="1.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="431.0" minHeight="450.0" prefHeight="430.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="393.0" minHeight="30.0" prefHeight="89.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="537.0" minHeight="30.0" prefHeight="104.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="606.0" minHeight="40.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="572.0" minHeight="40.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="572.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="572.0" minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="572.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="572.0" minHeight="10.0" prefHeight="119.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="572.0" minHeight="10.0" prefHeight="336.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Username" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <Label text="Password" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <TextField fx:id="txtUsername" prefWidth="300.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <PasswordField fx:id="txtPassword" prefWidth="300.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button fx:id="btnTitolare" mnemonicParsing="false" onAction="#buttonTitolareAction" prefHeight="65.0" prefWidth="300.0" text="Titolare" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="TOP">
+            <Label text="Username" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Label text="Password" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+            <TextField fx:id="txtUsername" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <PasswordField fx:id="txtPassword" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button fx:id="btnTitolare" mnemonicParsing="false" onAction="#buttonTitolareAction" prefHeight="65.0" prefWidth="300.0" text="Titolare" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.valignment="TOP">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Button>
-            <Button fx:id="btnCliente" mnemonicParsing="false" onAction="#buttonClienteAction" prefHeight="65.0" prefWidth="300.0" text="Cliente" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.valignment="TOP">
+            <Button fx:id="btnCliente" mnemonicParsing="false" onAction="#buttonClienteAction" prefHeight="65.0" prefWidth="300.0" text="Cliente" GridPane.columnIndex="3" GridPane.rowIndex="8" GridPane.valignment="TOP">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Button>
-            <Label fx:id="SuggerimentoPassword" prefHeight="54.0" prefWidth="294.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <Label fx:id="SuggerimentoUsername" prefHeight="54.0" prefWidth="294.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Label fx:id="Suggerimento" prefHeight="54.0" prefWidth="294.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label fx:id="SuggerimentoPassword" prefHeight="54.0" prefWidth="294.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label fx:id="SuggerimentoUsername" prefHeight="54.0" prefWidth="294.0" GridPane.columnIndex="1" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+            <Label fx:id="Suggerimento" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin></Label>
+            <ImageView fitHeight="376.0" fitWidth="369.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../lib/78766962-diseño-del-emblema-de-la-pizzería-con-el-cocinero-sonriente-pizzería-vector-logo-plantilla-sobre-fondo-negr.jpg" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
    </center>
