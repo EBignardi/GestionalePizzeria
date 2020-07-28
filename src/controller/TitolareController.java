@@ -185,7 +185,6 @@ public class TitolareController implements Initializable {
                 );
        
 		top3pizze.setTitle("Top 3 Pizze");
-
 		top3pizze.getData().addAll(pieChartData);
 	}
 	
